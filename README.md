@@ -28,7 +28,7 @@
 - Automatically correct your system's configuration, so it's always in the state of desire
 
 ## How it work
-
+![DSC Life Cycle](images/DSC_LifeCycle.png)
 - DSC uses a specially crafted "MOF" file format 
 - MOF file contains all the information about the machine's configuration and any metadata associated with the configuration
 
@@ -37,7 +37,9 @@
  - **Push and Pull**
 
     + **Push** (Cons): The current configuration would not be applicable if the target nodes are down
+    ![Push Model](images/DSC_PushModel.png)
     + **Pull**: Target nodes can automatically receive configurations, conform to the desired state, and report on their compliance. The built-in pull server in Azure Automation eliminates the need to set up and maintain your own pull server
+    ![Pull Model](images/DSC_PullModel.png)
 
 ## Local Configuration Manager
 
