@@ -1,4 +1,4 @@
-#----------- DSC -----------
+# DSC Documents
 ## Problems 
 
 - How do I ensure all of my machines are matching their intended configuration and remain in the correct state?
@@ -80,8 +80,8 @@
         - Upload sql source to file share
         - Create automation account
         - Import module (https://docs.microsoft.com/en-us/azure/automation/shared-resources/modules)
-        - Add configuration file (installSQL.ps1)
-        - Compile configuration file -> InstallSQLEngine.localhost (mof file)
+        - Import configuration file (SQLInstance.ps1)
+        - Compile configuration file -> SQLInstance.localhost (mof file)
         - Register node to pull server
         - Assign node configuration
         - Monitor
@@ -89,19 +89,12 @@
     DSC Configuration file:
               Setup                             Module                          DSC Resource
 
-    Install Essential packages         PSDesiredStateConfiguration             WindowsFeature      
-    Copy shared-resources              PSDesiredStateConfiguration                  File 
-    Extract source file                PSDesiredStateConfiguration                 Archive
-    Install SQL server                       SqlServerDsc                          SqlSetup
-    Enable TCP                               SqlServerDsc                         SqlProtocol    
-    Allow remote (SQL Development)           SqlServerDsc                      SqlConfiguration
+    Install Essential packages                 Built-in                        WindowsFeature      
+    SQL install packages              xPSDesiredStateConfiguration                xArchive
+    Install SQL server                       SqlServerDsc                         SqlSetup
+    Enable TCP                               SqlServerDsc                        SqlProtocol    
+    Allow remote (SQL Development)           SqlServerDsc                     SqlConfiguration
     Allow firewall                           SqlServerDsc                     SqlWindowsFirewall
-
-
-
-## installSQL.ps1 
-
--> Compile DSC configuration into mof file named 'SQLInstance.locahost'
 
 ## Reuse-ability 
 
@@ -127,7 +120,7 @@
     + Manage firewall settings
     + Manage password settings
 
-- Rewrite node configuration file
+- (Demo) Rewrite node configuration file (SQLInstance-Remake.ps1)
 
 ```diff
 ...
@@ -154,7 +147,5 @@
 ```
 ## Reference
 
-- Using configuration data in DSC:
-[1]: https://docs.microsoft.com/en-us/powershell/scripting/dsc/configurations/configdata?view=powershell-7.1
-- Trigger compile DSC configuration
-[1]: https://github.com/robcamer/TerraformModuleApplyingDSC/blob/main/modules/dsc/main.tf
+- [Using configuration data in DSC](https://docs.microsoft.com/en-us/powershell/scripting/dsc/configurations/configdata?view=powershell-7.1)
+- [Trigger compile DSC configuration](https://github.com/robcamer/TerraformModuleApplyingDSC/blob/main/modules/dsc/main.tf)
