@@ -1,13 +1,14 @@
 # Table Of Content
   * [Problems](#problems)
   * [What is DSC ?](#what-is-dsc--)
-  * [How it work](#how-it-work)
+  * [Powershell DSC](#powershell-dsc)
+  * [Azure Automation DSC](#azure-automation-dsc)
   * [DSC Strategies](#dsc-strategies)
   * [Local Configuration Manager](#local-configuration-manager)
   * [Settings in LCM](#settings-in-lcm)
   * [Report Status](#report-status)
-  * [DSC Configuration file](#dsc-configuration-file)
-  * [Reuse-ability](#reuse-ability)
+  * [General DSC Command to Know](#general-dsc-command-to-know)
+  * [Reuse-ability (Module)](#reuse-ability--module-)
   * [Reference](#reference)
 ## Problems 
 
