@@ -97,7 +97,7 @@
 
 - **Get-DSCResource**: shows you the available DSC resources
 - **Get-DSCConfiguration**: gets the configuration of a given node along with the details
-- **Get-DSCConfiguration**: queries the local configuration status of the machine
+- **Get-DSCConfigurationStatus**: queries the local configuration status of the machine
 - **Get-DSCLocalConfigurationManager**: gets the local configuration, meta-data, and state of the node
 - **Update-DSCConfiguration**: pull the state configuration file and apply changes, if any
 
@@ -110,6 +110,7 @@
         - Upload sql source to file share
         - Create automation account
         - Import module (https://docs.microsoft.com/en-us/azure/automation/shared-resources/modules)
+        - Create automation credential
         - Import configuration file (SQLInstance.ps1)
         - Compile configuration file -> SQLInstance.localhost (mof file)
         - Register node to pull server

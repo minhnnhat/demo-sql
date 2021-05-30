@@ -2,17 +2,16 @@ provider "azurerm" {
   features {}
 }
 
-locals {
-  resource_group_name = var.resource_group_name
-  location = var.location
+data "http" "myip" {
+  url = "https://api.ipify.org/"
 }
 
 module "resource-group" {
   source  = "minhnnhat/resource-group/azure"
   version = "1.0.1"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
 
 #-----------------
@@ -20,10 +19,10 @@ module "resource-group" {
 #-----------------
 module "virtual-network" {
   source  = "minhnnhat/virtual-network/azure"
-  version = "1.0.1"
+  version = "1.0.2"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = module.resource-group.az_rg_name
+  location            = module.resource-group.az_rg_location
 
   name          = var.vnet_name
   vnic_name     = var.vnet_vnic_name
@@ -39,8 +38,8 @@ module "security-group" {
   source  = "minhnnhat/security-group/azure"
   version = "1.0.1"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = module.resource-group.az_rg_name
+  location            = module.resource-group.az_rg_location
 
   name = var.nsg_name
 
@@ -56,8 +55,8 @@ resource "azurerm_network_interface_security_group_association" "main" {
 # Virtual Machine
 #-----------------
 resource "azurerm_windows_virtual_machine" "main" {
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = module.resource-group.az_rg_name
+  location            = module.resource-group.az_rg_location
 
   name = var.vm_name
 
@@ -86,8 +85,8 @@ module "automation-account" {
   source  = "minhnnhat/automation-account/azure"
   version = "1.0.2"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = module.resource-group.az_rg_name
+  location            = module.resource-group.az_rg_location
 
   name = var.aa_name
 
@@ -101,8 +100,8 @@ module "automation-account" {
 }
 
 resource "azurerm_automation_dsc_configuration" "az_aa_dscc_sql" {
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = module.resource-group.az_rg_name
+  location            = module.resource-group.az_rg_location
 
   for_each = var.aa_dscfiles
   name     = each.key
@@ -111,4 +110,19 @@ resource "azurerm_automation_dsc_configuration" "az_aa_dscc_sql" {
 
 
   content_embedded = file("${path.cwd}/${each.value}")
+}
+
+data "azurerm_storage_account" "main" {
+  name                = "ntglabdevdata"
+  resource_group_name = "dev"
+}
+
+resource "azurerm_storage_account_network_rules" "main" {
+  resource_group_name  = data.azurerm_storage_account.main.resource_group_name
+  storage_account_name = data.azurerm_storage_account.main.name
+
+  default_action             = "Deny"
+  ip_rules                   = ["${chomp(data.http.myip.body)}"]
+  virtual_network_subnet_ids = module.virtual-network.az_subnet_ids
+  bypass                     = ["AzureServices"]
 }
