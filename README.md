@@ -1,4 +1,14 @@
 # DSC Documents
+  * [Problems](#problems)
+  * [What is DSC ?](#what-is-dsc--)
+  * [How it work](#how-it-work)
+  * [DSC Strategies](#dsc-strategies)
+  * [Local Configuration Manager](#local-configuration-manager)
+  * [Settings in LCM](#settings-in-lcm)
+  * [Report Status](#report-status)
+  * [DSC Configuration file](#dsc-configuration-file)
+  * [Reuse-ability](#reuse-ability)
+  * [Reference](#reference)
 ## Problems 
 
 - How do I ensure all of my machines are matching their intended configuration and remain in the correct state?
