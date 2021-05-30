@@ -99,9 +99,19 @@
 ## Reuse-ability 
 
 - A composite resource (Module)
+
+- Manage groups of settings:
+    + Create a web server
+    + Create a DNS server
+    + Configure a SQL cluster
+    + Manage firewall settings
+    + Manage password settings
+
 - Composite resource structure:
 ```
-    InitSql
+tree DSC/InitSql
+
+_____InitSql
     |___InitSql.psd1
     |___DSCResource
        |___Dot_Net
@@ -112,13 +122,6 @@
            |___File_Source.psd1
            |___File_Source.schema.psm1
 ``` 
-    
-- Manage groups of settings:
-    + Create a web server
-    + Create a DNS server
-    + Configure a SQL cluster
-    + Manage firewall settings
-    + Manage password settings
 
 - (Demo) Rewrite node configuration file (SQLInstance-Remake.ps1)
 
