@@ -64,7 +64,7 @@
 
 - **RegistrationUrl**: < Automation Account URL >
 
-- **NodeConfigurationName**: < InstallSQLEngine.localhost >
+- **NodeConfigurationName**: < xSQLInstance.localhost >
 
 - **ConfigurationMode**:
 	+ **ApplyOnly**: DSC applies the configuration and does nothing further
@@ -125,9 +125,9 @@
     Allow remote (SQL Development)           SqlServerDsc                     SqlConfiguration
     Allow firewall                           SqlServerDsc                     SqlWindowsFirewall
 
-## Reuse-ability 
+## Reuse-ability (Module)
 
-- A composite resource (Module)
+- A composite resource
 
 - Manage groups of settings:
     + Create a web server

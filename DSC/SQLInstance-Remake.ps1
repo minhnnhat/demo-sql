@@ -1,4 +1,4 @@
-Configuration InstallSQLEngineRemake
+Configuration xSQLInstance
 {
   #---------------
   # Import Module 
