@@ -2,12 +2,17 @@ provider "azurerm" {
   features {}
 }
 
+locals {
+  resource_group_name = var.resource_group_name
+  location = var.location
+}
+
 module "resource-group" {
   source  = "minhnnhat/resource-group/azure"
   version = "1.0.1"
 
-  resource_group_name = var.resource_group_name
-  location            = var.location
+  resource_group_name = local.resource_group_name
+  location            = local.location
 }
 
 #-----------------
@@ -17,8 +22,8 @@ module "virtual-network" {
   source  = "minhnnhat/virtual-network/azure"
   version = "1.0.1"
 
-  resource_group_name = module.resource-group.az_rg_name
-  location            = module.resource-group.az_rg_location
+  resource_group_name = local.resource_group_name
+  location            = local.location
 
   name          = var.vnet_name
   vnic_name     = var.vnet_vnic_name
@@ -34,8 +39,8 @@ module "security-group" {
   source  = "minhnnhat/security-group/azure"
   version = "1.0.1"
 
-  resource_group_name = module.resource-group.az_rg_name
-  location            = module.resource-group.az_rg_location
+  resource_group_name = local.resource_group_name
+  location            = local.location
 
   name = var.nsg_name
 
@@ -51,8 +56,8 @@ resource "azurerm_network_interface_security_group_association" "main" {
 # Virtual Machine
 #-----------------
 resource "azurerm_windows_virtual_machine" "main" {
-  resource_group_name = module.resource-group.az_rg_name
-  location            = module.resource-group.az_rg_location
+  resource_group_name = local.resource_group_name
+  location            = local.location
 
   name = var.vm_name
 
@@ -81,8 +86,8 @@ module "automation-account" {
   source  = "minhnnhat/automation-account/azure"
   version = "1.0.2"
 
-  resource_group_name = module.resource-group.az_rg_name
-  location            = module.resource-group.az_rg_location
+  resource_group_name = local.resource_group_name
+  location            = local.location
 
   name = var.aa_name
 
@@ -96,8 +101,8 @@ module "automation-account" {
 }
 
 resource "azurerm_automation_dsc_configuration" "az_aa_dscc_sql" {
-  resource_group_name = module.resource-group.az_rg_name
-  location            = module.resource-group.az_rg_location
+  resource_group_name = local.resource_group_name
+  location            = local.location
 
   for_each = var.aa_dscfiles
   name     = each.key

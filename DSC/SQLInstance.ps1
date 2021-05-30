@@ -28,7 +28,7 @@ Configuration xSQLInstance # Based on function or env needed
 #------------------
     SqlSetup DB 
     {
-      DependsOn             = '[Archive]ExtractSource'
+      DependsOn             = '[xArchive]GetSource'
       InstanceName          = 'MSSQLSERVER'
       SourcePath            = 'C:\SQL2019'
       Features              = 'SQLENGINE'

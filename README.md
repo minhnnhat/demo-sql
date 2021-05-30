@@ -71,7 +71,7 @@
 - Powershell script format (.ps1)
 - Compile to MOF (.mof) file before being applied
 
-#----------- DEMO -----------
+----------- DEMO -----------
 
 **Lab**: Setup SQL Server
 
@@ -109,18 +109,27 @@
 
 - Composite resource structure:
 ```
-tree DSC/InitSql
+tree DSC
 
-_____InitSql
+_____DSC
+    |
+    InitSql
     |___InitSql.psd1
-    |___DSCResource
-       |___Dot_Net
-       |   |___Dot_Net.psd1
-       |   |___Dot_Net.schema.psm1
-       |
-       |___File_Source
-           |___File_Source.psd1
-           |___File_Source.schema.psm1
+    |___DSCResources
+    |   |___Dot_Net
+    |   |   |___Dot_Net.psd1
+    |   |   |___Dot_Net.schema.psm1
+    |   |
+    |   |___File_Source
+    |       |___File_Source.psd1
+    |       |___File_Source.schema.psm1
+    |
+    SetupSql
+    |___SetupSql.psd1
+    |___DSCResources
+        |___Setup_Sql
+            |___Setup_Sql.psd1
+            |___Setup_Sql.schema.psm1
 ``` 
 
 - (Demo) Rewrite node configuration file (SQLInstance-Remake.ps1)
