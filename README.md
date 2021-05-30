@@ -1,4 +1,4 @@
-# DSC Documents
+# Table Of Content
   * [Problems](#problems)
   * [What is DSC ?](#what-is-dsc--)
   * [How it work](#how-it-work)
