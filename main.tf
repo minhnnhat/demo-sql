@@ -3,7 +3,8 @@ provider "azurerm" {
 }
 
 module "resource-group" {
-  source = "../../az-modules/resource-group/"
+  source  = "minhnnhat/resource-group/azure"
+  version = "1.0.1"
 
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -13,7 +14,8 @@ module "resource-group" {
 # Virtual Network
 #-----------------
 module "virtual-network" {
-  source = "../../az-modules/virtual-network/"
+  source  = "minhnnhat/virtual-network/azure"
+  version = "1.0.1"
 
   resource_group_name = module.resource-group.az_rg_name
   location            = module.resource-group.az_rg_location
@@ -29,7 +31,8 @@ module "virtual-network" {
 # Security Group
 #----------------
 module "security-group" {
-  source = "../../az-modules/security-group/"
+  source  = "minhnnhat/security-group/azure"
+  version = "1.0.1"
 
   resource_group_name = module.resource-group.az_rg_name
   location            = module.resource-group.az_rg_location
@@ -75,7 +78,8 @@ resource "azurerm_windows_virtual_machine" "main" {
 # Automation Account
 #--------------------
 module "automation-account" {
-  source = "../../az-modules/automation-account/"
+  source  = "minhnnhat/automation-account/azure"
+  version = "1.0.2"
 
   resource_group_name = module.resource-group.az_rg_name
   location            = module.resource-group.az_rg_location

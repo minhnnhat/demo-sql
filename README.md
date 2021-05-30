@@ -1,9 +1,5 @@
 #----------- DSC -----------
-
-
-#####--------------
 #### Problems 
-#####--------------
 
 - How do I ensure all of my machines are matching their intended configuration and remain in the correct state?
 - How do I prevent machine configuration from drifting from the desired state, due to changes made by people, process, and programs?
@@ -13,9 +9,7 @@
 - How do I orchestrate configuration changes without impacting uptime?
 - How do I do all of the above, consistently, across on-premises machines and those in public clouds, and across Windows and Linux?
 
-#####--------------------
 #### What is DSC ?
-#####--------------------
 
 - **Desired State Configuration (DSC)**: essential element of server, support, and administration Windows-based setup
 - **PowerShell DSC**: PowerShell Desired State Configuration (DSC)
@@ -23,33 +17,24 @@
 - Control the current state of resources that are applied to config to check the machine consistency
 - Automatically correct your system's configuration, so it's always in the state of desire
 
-#####-----------------
 #### How it work
-#####-----------------
 
 - DSC uses a specially crafted "MOF" file format 
 - MOF file contains all the information about the machine's configuration and any metadata associated with the configuration
 
-#####----------------------
 #### DSC Strategies
-#####----------------------
 
-Push and Pull
+**Push and Pull**
 
 - **Push** (Cons): The current configuration would not be applicable if the target nodes are down
-
 - **Pull**: Target nodes can automatically receive configurations, conform to the desired state, and report on their compliance. The built-in pull server in Azure Automation eliminates the need to set up and maintain your own pull server
 
-#####------------------------------------------
 #### Local Configuration Manager
-#####------------------------------------------
 
 - Manage the state of local server
 - Suppose the Pull mechanism is used, LCM periodically surveys the remote servers to verify if they are in the desired state unless the setup is called to render them in the desired state
 
-#####-----------------------
 #### Settings in LCM
-#####-----------------------
 
 - **RegistrationUrl**: < Automation Account URL >
 
@@ -74,18 +59,14 @@ Push and Pull
 
 - **RegistrationKey**: < Automation Account Key Access >
 
-#####--------------------
 #### Report Status
-#####--------------------
 
 - **Compliant**: Target node is compliant with the check
 - **Failed**: configuration failed the check
 - **Not Compliant**: Target node is in ApplyandMonitor mode and the machine is not in the desired state
 - **Unresponsive**: If a certificate expires without renewal, the node is unable to communicate with Azure Automation (Before Windows server)
 
-#####---------------------------------
 #### DSC Configuration file
-#####---------------------------------
 
 - Powershell script format (.ps1)
 - Compile to MOF (.mof) file before being applied
@@ -118,15 +99,11 @@ Push and Pull
 
 
 
-#####---------------------
 #### installSQL.ps1 
-#####---------------------
 
 -> Compile DSC configuration into mof file named 'SQLInstance.locahost'
 
-#####-------------------
 #### Reuse-ability 
-#####-------------------
 
 - A composite resource (Module)
 - Composite resource structure:
@@ -154,38 +131,29 @@ Push and Pull
 
 ```diff
 ...
-Node localhost
-  {
 -    WindowsFeature NetFramework # Resource in module
 -    {
 -      Name   = 'NET-Framework-45-Core'
 -      Ensure = 'Present'
 -    }
-+    Dot_Net 'Version45' {
-+       WindowsFeatures = 'NET-Framework-45-Core'
-+    }
--    xRemoteFile GetSource
--    {
--        DestinationPath = "C:\Packages"
--        Uri             = "\\ntgdata.file.core.windows.net\sqlsource\"
--        Credential      = (Get-AutomationPSCredential 'cred_store')
--    }
-
+-
 -    xArchive GetSource 
 -    {
--      Ensure      = "Present"
--      Path        = "C:\Packages\SQL2019.zip"
+-      Ensure = "Present"
+-      Path = "\\ntglabdevdata.file.core.windows.net\sqlsources\SQL2019.zip"
 -      Destination = "C:\"
+-      Credential = (Get-AutomationPSCredential 'cred_store')
 -    }
-+    File_Source 'SQL2019' {
-+        SrcPath = '\\ntglabdevdata.file.core.windows.net\sqlsources\'
-+        SqlVer = 'SQL2019'
++    Init_Sql EssentialPackage 
++    {
++      WindowsFeatures = 'NET-Framework-45-Core'
++      SrcPath         = '\\ntglabdevdata.file.core.windows.net\sqlsources\'
++      SqlVer          = 'SQL2019'
 +    }
 ...
 ```
-#####---------------
 #### Reference
-#####---------------
+
 - Using configuration data in DSC:
 [1]: https://docs.microsoft.com/en-us/powershell/scripting/dsc/configurations/configdata?view=powershell-7.1
 - Trigger compile DSC configuration
