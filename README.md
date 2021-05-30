@@ -27,10 +27,23 @@
 - Control the current state of resources that are applied to config to check the machine consistency
 - Automatically correct your system's configuration, so it's always in the state of desire
 
-## How it work
+## Powershell DSC
+
 ![DSC Life Cycle](images/DSC_LifeCycle.png)
+
 - DSC uses a specially crafted "MOF" file format 
 - MOF file contains all the information about the machine's configuration and any metadata associated with the configuration
+
+## Azure Automation DSC
+
+![Azure DSC Work Flow](images/DSC_WorkFlow.png)
+
+- Advantages of Azure Automation DSC over PowerShell DSC:
+    + Easier to configure
+    + Integration with existing PowerShell Systems
+    + Flexibility
+    + The pull server provided by Azure Automation DSC can be used to store all DSC configurations and resources
+    + Reporting allows you to keep track of the compliant state
 
 ## DSC Strategies
 
@@ -38,6 +51,7 @@
 
     + **Push** (Cons): The current configuration would not be applicable if the target nodes are down
     ![Push Model](images/DSC_PushModel.png)
+
     + **Pull**: Target nodes can automatically receive configurations, conform to the desired state, and report on their compliance. The built-in pull server in Azure Automation eliminates the need to set up and maintain your own pull server
     ![Pull Model](images/DSC_PullModel.png)
 
@@ -78,10 +92,13 @@
 - **Not Compliant**: Target node is in ApplyandMonitor mode and the machine is not in the desired state
 - **Unresponsive**: If a certificate expires without renewal, the node is unable to communicate with Azure Automation (Before Windows server)
 
-## DSC Configuration file
+## General DSC Command to Know
 
-- Powershell script format (.ps1)
-- Compile to MOF (.mof) file before being applied
+- **Get-DSCResource**: shows you the available DSC resources
+- **Get-DSCConfiguration**: gets the configuration of a given node along with the details
+- **Get-DSCConfiguration**: queries the local configuration status of the machine
+- **Get-DSCLocalConfigurationManager**: gets the local configuration, meta-data, and state of the node
+- **Update-DSCConfiguration**: pull the state configuration file and apply changes, if any
 
 ----------- DEMO -----------
 
