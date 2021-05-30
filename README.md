@@ -107,7 +107,7 @@
     + Manage firewall settings
     + Manage password settings
 
-- Composite resource structure:
+- Composite resource folder structure:
 ```
 tree DSC
 
@@ -132,6 +132,8 @@ _____DSC
             |___Setup_Sql.schema.psm1
 ``` 
 
+- Upload composite resources (InitSql,SetupSql) to modules gallery
+
 - (Demo) Rewrite node configuration file (SQLInstance-Remake.ps1)
 
 ```diff
@@ -149,14 +151,77 @@ _____DSC
 -      Destination = "C:\"
 -      Credential = (Get-AutomationPSCredential 'cred_store')
 -    }
+-    SqlSetup DB 
+-    {
+-      DependsOn             = '[xArchive]GetSource'
+-      InstanceName          = 'MSSQLSERVER'
+-      SourcePath            = 'C:\SQL2019'
+-      Features              = 'SQLENGINE'
+-      InstallSharedDir      = 'C:\Program Files\Microsoft SQL Server'
+-      InstallSharedWOWDir   = 'C:\Program Files (x86)\Microsoft SQL Server'
+-      InstanceDir           = 'C:\Program Files\Microsoft SQL Server'
+-      SQLSysAdminAccounts   = @('Administrators')
+-      InstallSQLDataDir     = 'C:\Program Files\Microsoft SQL Server\MSSQL19.MSSQLSERVER\MSSQL\Data'
+-      SQLUserDBDir          = 'C:\Program Files\Microsoft SQL Server\MSSQL19.MSSQLSERVER\MSSQL\Data'
+-      SQLUserDBLogDir       = 'C:\Program Files\Microsoft SQL Server\MSSQL19.MSSQLSERVER\MSSQL\Data'
+-      SQLTempDBDir          = 'C:\Program Files\Microsoft SQL Server\MSSQL19.MSSQLSERVER\MSSQL\Data'
+-      SQLTempDBLogDir       = 'C:\Program Files\Microsoft SQL Server\MSSQL19.MSSQLSERVER\MSSQL\Data'
+-      SQLBackupDir          = 'C:\Program Files\Microsoft SQL Server\MSSQL19.MSSQLSERVER\MSSQL\Data'
+-      SecurityMode          = 'SQL'
+-      SAPwd                 = (Get-AutomationPSCredential 'cred_sql')
+-      UpdateEnabled         = $true
+-      SQLSvcStartupType     = 'Automatic'
+-    }
+-
+-    SqlProtocol 'ChangeTcpIpOnDefaultInstance'
+-    {
+-      DependsOn              ='[SqlSetup]DB'
+-      InstanceName           = 'MSSQLSERVER'
+-      ProtocolName           = 'TcpIp'
+-      Enabled                = $true
+-      ListenOnAllIpAddresses = $true
+-      KeepAlive              = 20000
+-    }
+-
+-    SqlConfiguration 'AllowRemoteAccess'
+-    {
+-      DependsOn      ='[SqlSetup]DB'
+-      InstanceName   = 'MSSQLSERVER'
+-      OptionName     = 'remote access'
+-      OptionValue    = 1
+-      RestartService = $true
+-    }
+-
+-    SqlWindowsFirewall 'AllowFirewall'
+-    {
+-      DependsOn             = '[SqlSetup]DB'
+-      InstanceName          = 'MSSQLSERVER'
+-      Features              = 'SQLEngine'
+-      SourcePath            = 'C:\SQL2019'
+-    }
+-
+-    SqlDatabase 'CreateDbaDatabase'
+-    {
+-      DependsOn             = '[SqlSetup]DB'
+-      InstanceName          = 'MSSQLSERVER'
+-      Name                  = 'DBA'
+-    }
 +    Init_Sql EssentialPackage 
 +    {
 +      WindowsFeatures = 'NET-Framework-45-Core'
 +      SrcPath         = '\\ntglabdevdata.file.core.windows.net\sqlsources\'
 +      SqlVer          = 'SQL2019'
 +    }
++
++    Setup_Sql SetupSqlInstance
++    {
++      DependsOn   = '[Init_Sql]EssentialPackages'
++      SourcePath  = 'C:\SQL2019'
++      Features    = 'SQLENGINE'
++    }
 ...
 ```
+
 ## Reference
 
 - [Using configuration data in DSC](https://docs.microsoft.com/en-us/powershell/scripting/dsc/configurations/configdata?view=powershell-7.1)

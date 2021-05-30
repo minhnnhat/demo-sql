@@ -50,7 +50,7 @@ Configuration xSQLInstance # Based on function or env needed
 
     SqlProtocol 'ChangeTcpIpOnDefaultInstance'
     {
-      DependsOn              ='[SqlSetup]DB'
+      DependsOn              = '[SqlSetup]DB'
       InstanceName           = 'MSSQLSERVER'
       ProtocolName           = 'TcpIp'
       Enabled                = $true

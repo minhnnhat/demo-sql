@@ -17,6 +17,7 @@ Configuration InstallSQLEngineRemake
 
     Setup_Sql SetupSqlInstance
     {
+      DependsOn   = '[Init_Sql]EssentialPackages'
       SourcePath  = 'C:\SQL2019'
       Features    = 'SQLENGINE'
     }
