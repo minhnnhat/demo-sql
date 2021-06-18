@@ -50,10 +50,11 @@
 
  - **Push and Pull**
 
-    + **Push** (Cons): The current configuration would not be applicable if the target nodes are down
+    + **Push**: An administrator manually sends, or pushes, the configurations toward one or more nodes. The LCM makes sure that the state on each node matches what the configuration specifies.
+    **The current configuration would not be applicable if the target nodes are down**
     ![Push Model](images/DSC_PushModel.png)
 
-    + **Pull**: Target nodes can automatically receive configurations, conform to the desired state, and report on their compliance. The built-in pull server in Azure Automation eliminates the need to set up and maintain your own pull server
+    + **Pull**: A pull server holds the configuration information. The LCM on each node polls the pull server at regular intervals, by default every 15 minutes, to get the latest configuration details. These requests are denoted as step 1 in the following diagram. In step 2, the pull server sends the details about any configuration changes back to each node.
     ![Pull Model](images/DSC_PullModel.png)
 
 ## Local Configuration Manager
@@ -109,9 +110,9 @@
         - Create storage account
         - Upload sql source to file share
         - Create automation account
-        - Import module (https://docs.microsoft.com/en-us/azure/automation/shared-resources/modules)
+        - Upload DSc configuration script
+        - Import required module (https://docs.microsoft.com/en-us/azure/automation/shared-resources/modules)
         - Create automation credential
-        - Import configuration file (SQLInstance.ps1)
         - Compile configuration file -> SQLInstance.localhost (mof file)
         - Register node to pull server
         - Assign node configuration
@@ -237,7 +238,7 @@ _____DSC
 -      InstanceName          = 'MSSQLSERVER'
 -      Name                  = 'DBA'
 -    }
-+    Init_Sql EssentialPackage 
++    Init_Sql EssentialPackages
 +    {
 +      WindowsFeatures = 'NET-Framework-45-Core'
 +      SrcPath         = '\\ntglabdevdata.file.core.windows.net\sqlsources\'

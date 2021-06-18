@@ -1,101 +1,98 @@
+# data "http" "myip" {
+#     url = "https://api.ipify.org/"
+# }
+
 variable "resource_group_name" {
   description = "Resource group name"
-  default     = ""
 }
 
 variable "location" {
-  description = "Location name"
-  default     = ""
+  description = "Resource group location"
 }
 
-#-----------------
-# Virtual Network
-#-----------------
 variable "vnet_name" {
-  description = "Name of virtual network"
-  default     = ""
+  description = "Virtual network name"
 }
 
 variable "vnet_address_space" {
-  description = "Address space used in virtual network"
-  default     = []
+  description = "Address space"
 }
 
-variable "vnet_vnic_name" {
-  description = "Name of virtual network interface"
-  default     = ""
+variable "subnets" {
+  description = "Subnet information"
+  default = {}
 }
 
-variable "vnet_ipconfig_name" {
-  description = "Name of ip configuration"
-  default     = ""
-}
-
-variable "vnet_subnets" {
-  description = "For each subnet, create an object that contain fields"
-  type        = map(any)
-  default     = {}
-}
-
-#----------------
-# Security Group
-#----------------
-variable "nsg_name" {
-  description = "Name of network security group"
-  default     = ""
-}
-
-variable "nsg_rules" {
-  description = "Define network security group rules"
-  type        = map(any)
-  default     = {}
-}
-
-#-----------------
-# Virtual Machine
-#-----------------
-variable "vm_name" {
-  description = "Name of windows virtual machine"
-  default     = ""
-}
-
-variable "vm_size" {
-  description = "Size of windows virtual machine"
-  default     = ""
+variable "vms" {
+  default = {
+    ad_vm = {
+      vm_name   = "ad-vm"
+      pip_name  = "ad-pip"
+      vnic_name = "ad-nic"
+      ip_config = {
+        name       = "ipconfig"
+        private_ip = "10.0.1.4"
+      }
+      vm_size = "Standard_A1_v2"
+    }
+    sql01_vm = {
+      vm_name   = "sql01-vm"
+      pip_name  = "sql01-pip"
+      vnic_name = "sql01-nic"
+      ip_config = {
+        name       = "ipconfig"
+        private_ip = "10.0.1.5"
+      }
+      vm_size = "Standard_A2_v2"
+    }
+    sql02_vm = {
+      vm_name   = "sql02-vm"
+      pip_name  = "sql02-pip"
+      vnic_name = "sql02-nic"
+      ip_config = {
+        name       = "ipconfig"
+        private_ip = "10.0.1.6"
+      }
+      vm_size = "Standard_A2_v2"
+    }
+  }
 }
 
 variable "vm_user" {
-  description = "Windows virtual machine's user"
-  default     = ""
+  description = "Virtual machine username"
 }
 
 variable "vm_pass" {
-  description = "Windows virtual machine's password"
-  default     = ""
+  description = "Virtual machine password"
 }
 
-#--------------------
-# Automation Account
-#--------------------
 variable "aa_name" {
   description = "Name of automation account"
-  default     = ""
 }
 
 variable "aa_modules" {
   description = "Modules used in DSC"
   type        = map(any)
-  default     = {}
+  default = {}
 }
 
 variable "aa_credentials" {
   description = "Credentials used in DSC"
   type        = map(any)
-  default     = {}
+  default = {}
 }
 
 variable "aa_dscfiles" {
   description = "DSC files"
   type        = map(any)
-  default     = {}
+  default = {}
+}
+
+variable "lb_internal" {
+  description = "Load Balancer"
+  default = {}
+}
+
+variable "lb_name" {
+  description = "Load balance name"
 }
