@@ -10,7 +10,9 @@ locals {
 # Resource group
 #----------------
 module "resource-group" {
-  source = "./az-modules/resource-group"
+  # source = "./az-modules/resource-group"
+  source  = "minhnnhat/resource-group/azure"
+  version = "1.0.1"
 
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -19,7 +21,8 @@ module "resource-group" {
 # Virtual network and security group
 #------------------------------------
 module "virtual-network" {
-  source = "./az-modules/virtual-network"
+  source = "minhnnhat/virtual-network/azure"
+  version = "2.0.0"
 
   resource_group_name = local.resource_group_name
   location            = local.location
@@ -111,7 +114,8 @@ resource "azurerm_windows_virtual_machine" "main" {
 # Automation account
 #--------------------
 module "automation-account" {
-  source = "./az-modules/automation-account"
+  source = "minhnnhat/automation-account/azure"
+  version = "1.0.3"
 
   resource_group_name = local.resource_group_name
   location            = local.location
@@ -131,7 +135,8 @@ module "automation-account" {
 # Load balance
 #--------------
 module "load-balancer" {
-  source = "./az-modules/load-balancer"
+  source  = "minhnnhat/load-balancer/azure"
+  version = "1.0.0"
 
   resource_group_name = local.resource_group_name
   location            = local.location

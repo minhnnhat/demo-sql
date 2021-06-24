@@ -20,7 +20,7 @@ variable "vnet_address_space" {
 
 variable "subnets" {
   description = "Subnet information"
-  default = {}
+  default     = {}
 }
 
 variable "vms" {
@@ -73,24 +73,24 @@ variable "aa_name" {
 variable "aa_modules" {
   description = "Modules used in DSC"
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "aa_credentials" {
   description = "Credentials used in DSC"
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "aa_dscfiles" {
   description = "DSC files"
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "lb_internal" {
   description = "Load Balancer"
-  default = {}
+  default     = {}
 }
 
 variable "lb_name" {

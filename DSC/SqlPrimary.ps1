@@ -13,7 +13,7 @@ Configuration SqlPrimary
 
   $store = Get-AutomationPSCredential 'cred_store'
   $cred_adadmin = Get-AutomationPSCredential 'cred_adadmin'
-  $cred_adjoin = new-object -typename System.Management.Automation.PSCredential -argumentlist ('ntglab\' + $cred_adadmin.UserName, $cred_adadmin.Password)
+  $cred_adjoin = new-object -typename System.Management.Automation.PSCredential -argumentlist ('ntglab\' + $cred_adadmin.UserName, $cred_adadmin.GetNetworkCredential().Password)
   $cred_svcsql01 = Get-AutomationPSCredential 'cred_svcsql01'
   $SqlSvcAccount = ('ntglab\' + $cred_svcsql01.UserName + '$')
   $SqlSvcCred = new-object -typename System.Management.Automation.PSCredential -argumentlist $SqlSvcAccount,$cred_svcsql01.Password
@@ -99,7 +99,7 @@ Configuration SqlPrimary
     {
       Name       = 'SQL01'
       DomainName = 'ntglab.com'
-      Credential = (Get-AutomationPSCredential 'cred_admin')
+      Credential = $cred_adjoin
       DependsOn  = '[DnsServerAddress]DnsServerAddress'
     }
 
