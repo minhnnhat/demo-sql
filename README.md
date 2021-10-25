@@ -1,4 +1,4 @@
-# Table Of Content
+# Table of content
   * [Problems](#problems)
   * [What is DSC ?](#what-is-dsc--)
   * [Powershell DSC](#powershell-dsc)
