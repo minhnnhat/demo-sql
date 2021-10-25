@@ -1,30 +1,21 @@
 provider "azurerm" {
   features {}
 }
-
-locals {
-  resource_group_name = module.resource-group.az_rg_name
-  location            = module.resource-group.az_rg_location
-}
 #----------------
 # Resource group
 #----------------
-module "resource-group" {
-  source  = "minhnnhat/resource-group/azure"
-  version = "1.0.1"
-
-  resource_group_name = var.resource_group_name
-  location            = var.location
+resource "azurerm_resource_group" "az_rg" {
+  name     = var.resource_group_name
+  location = var.location
 }
 #------------------------------------
 # Virtual network and security group
 #------------------------------------
 module "virtual-network" {
-  source  = "minhnnhat/virtual-network/azure"
-  version = "2.0.0"
+  source = "./modules/virtual-network"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   name          = var.vnet_name
   address_space = var.vnet_address_space
@@ -33,9 +24,9 @@ module "virtual-network" {
 #-----------
 # Public IP
 #-----------
-resource "azurerm_public_ip" "main" {
-  resource_group_name = local.resource_group_name
-  location            = local.location
+resource "azurerm_public_ip" "pip" {
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   for_each          = var.vms
   name              = each.value.pip_name
@@ -43,11 +34,11 @@ resource "azurerm_public_ip" "main" {
   sku               = "Standard"
 }
 #---------------------------
-# Virtual network interface
+# Virtual network interfaces
 #---------------------------
-resource "azurerm_network_interface" "main" {
-  resource_group_name = local.resource_group_name
-  location            = local.location
+resource "azurerm_network_interface" "private_nic" {
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   for_each = var.vms
   name     = each.value.vnic_name
@@ -56,25 +47,25 @@ resource "azurerm_network_interface" "main" {
     for_each = [lookup(each.value, "ip_config", "")]
     content {
       name                          = ip_configuration.value["name"]
-      subnet_id                     = module.virtual-network.az_subnet_ids[0]
+      subnet_id                     = module.virtual-network.az_subnet_ids["private_subnet"]
       private_ip_address_allocation = "static"
       private_ip_address            = ip_configuration.value["private_ip"]
-      public_ip_address_id          = azurerm_public_ip.main[each.key].id
+      public_ip_address_id          = azurerm_public_ip.pip[each.key].id
     }
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "main" {
+resource "azurerm_network_interface_security_group_association" "private_nic_assoc" {
   for_each                  = var.vms
-  network_interface_id      = azurerm_network_interface.main[each.key].id
-  network_security_group_id = module.virtual-network.az_nsg_ids[0]
+  network_interface_id      = azurerm_network_interface.private_nic[each.key].id
+  network_security_group_id = module.virtual-network.az_nsg_ids["private_subnet"]
 }
 #----------------
 # Avaibility set
 #----------------
 resource "azurerm_availability_set" "main" {
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   name                         = "test-as"
   platform_update_domain_count = "2"
@@ -84,13 +75,13 @@ resource "azurerm_availability_set" "main" {
 # Virtual machine
 #-----------------
 resource "azurerm_windows_virtual_machine" "main" {
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   for_each = var.vms
   name     = each.value.vm_name
 
-  network_interface_ids = [azurerm_network_interface.main[each.key].id]
+  network_interface_ids = [azurerm_network_interface.private_nic[each.key].id]
   availability_set_id   = azurerm_availability_set.main.id
   timezone              = "SE Asia Standard Time"
   size                  = each.value.vm_size
@@ -113,11 +104,10 @@ resource "azurerm_windows_virtual_machine" "main" {
 # Automation account
 #--------------------
 module "automation-account" {
-  source  = "minhnnhat/automation-account/azure"
-  version = "1.0.3"
+  source = "./modules/automation-account"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   name = var.aa_name
 
@@ -134,14 +124,13 @@ module "automation-account" {
 # Load balance
 #--------------
 module "load-balancer" {
-  source  = "minhnnhat/load-balancer/azure"
-  version = "1.0.0"
+  source = "./modules/load-balancer"
 
-  resource_group_name = local.resource_group_name
-  location            = local.location
+  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = azurerm_resource_group.az_rg.location
 
   name                  = var.lb_name
   lb_internal           = var.lb_internal
-  subnet_ids            = module.virtual-network.az_subnet_ids[0]
-  network_interface_ids = { for k, v in azurerm_network_interface.main : k => v.id if k == "sql01_vm" || k == "sql02_vm" }
+  subnet_ids            = module.virtual-network.az_subnet_ids["private_subnet"]
+  network_interface_ids = { for k, v in azurerm_network_interface.private_nic : k => v.id if k == "sql01_vm" || k == "sql02_vm" }
 }

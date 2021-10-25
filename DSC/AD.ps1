@@ -6,13 +6,13 @@ Configuration ADServer
   Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 9.1.0
   Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
   Import-DscResource -Module ComputerManagementDsc -ModuleVersion 8.4.0
-  Import-DscResource -ModuleName xDnsServer -ModuleVersion 2.0.0
+  Import-DscResource -ModuleName DnsServerDsc -ModuleVersion 3.0.0
   Import-DscResource -Module NetworkingDsc -ModuleVersion 8.2.0
 
   $cred_adadmin = Get-AutomationPSCredential 'cred_adadmin'
   $cred_svcsql01 = Get-AutomationPSCredential 'cred_svcsql01'
   $cred_svcsql02 = Get-AutomationPSCredential 'cred_svcsql02'
-  $cred = Get-AutomationPSCredential 'cred_admin'
+  $cred_admin = Get-AutomationPSCredential 'cred_admin'
 
   Node DC1
   {    
@@ -37,8 +37,8 @@ Configuration ADServer
     # Create the ADDS DC
     ADDomain 'DC' {
         DomainName                      = 'ntglab.com'
-        Credential                      = $cred
-        SafemodeAdministratorPassword   = $cred
+        Credential                      = $cred_admin
+        SafemodeAdministratorPassword   = $cred_admin
         ForestMode                      = 'WinThreshold'
         DependsOn                       = '[xWindowsFeature]ADDS'
     }   
@@ -48,16 +48,26 @@ Configuration ADServer
         DomainName      = 'ntglab.com'
         WaitTimeout     = 600
         RestartCount    = 2
-        Credential      = $cred
+        Credential      = $cred_admin
         DependsOn       = '[ADDomain]DC'
     }
 
-    xDnsServerPrimaryZone 'addPrimaryZone'
+    ADDomainController 'DomainControllerAllProperties'
+    {
+        DomainName                    = 'ntglab.com'
+        Credential                    = $cred_admin
+        SafeModeAdministratorPassword = $cred_admin
+        DatabasePath                  = 'C:\Windows\NTDS'
+        LogPath                       = 'C:\Windows\Logs'
+        SysvolPath                    = 'C:\Windows\SYSVOL'
+        IsGlobalCatalog               = $true
+        DependsOn                     = '[WaitForADDomain]DscForestWait'
+    }
+
+    DnsServerPrimaryZone 'AddPrimaryZone'
     {
         Ensure        = 'Present'                
-        Name          = '10.0.1.in-addr.arpa'
-        ZoneFile      = '10.0.1.in-addr.arpa.dns'
-        DynamicUpdate = 'NonsecureAndSecure'
+        Name          = '1.0.10.in-addr.arpa'
     }
 
     ADUser 'AdAdmin'
@@ -67,28 +77,27 @@ Configuration ADServer
         Password            = $cred_adadmin
         PasswordNeverResets = $true
         Ensure              = 'Present'
-        Path                = 'CN=Users,DC=ntglab,DC=com'
         DependsOn           = '[ADDomain]DC'
     }
     
-    # ADGroup 'AddAdAdminToDomainAdmins'
-    # {
-    #     GroupName           = 'Domain Admins'
-    #     MembersToInclude    = $cred_adadmin.UserName
-    #     Ensure              = 'Present'
-    #     DependsOn           = '[ADUser]AdAdmin'
-    # }
-
-    ADUser 'SvcSql01'
+    ADGroup 'AddAdAdminToDomainAdmins'
     {
-        DomainName          = 'ntglab.com'
-        UserName            = $cred_svcsql01.UserName
-        Password            = $cred_svcsql01
-        PasswordNeverResets = $true
+        GroupName           = 'Domain Admins'
+        MembersToInclude    = $cred_adadmin.UserName
         Ensure              = 'Present'
-        Path                = 'CN=Users,DC=ntglab,DC=com'
-        DependsOn           = '[ADDomain]DC'
+        DependsOn           = '[ADUser]AdAdmin'
     }
+
+    # ADUser 'SvcSql01'
+    # {
+    #     DomainName          = 'ntglab.com'
+    #     UserName            = $cred_svcsql01.UserName
+    #     Password            = $cred_svcsql01
+    #     PasswordNeverResets = $true
+    #     Ensure              = 'Present'
+    #     Path                = 'CN=Users,DC=ntglab,DC=com'
+    #     DependsOn           = '[ADDomain]DC'
+    # }
     
     # ADGroup 'AddSvcSql01ToDomainAdmins'
     # {
@@ -98,24 +107,24 @@ Configuration ADServer
     #     DependsOn           = '[ADUser]SvcSql01'
     # }
 
-    ADUser 'SvcSql02'
-    {
-        DomainName          = 'ntglab.com'
-        UserName            = $cred_svcsql02.UserName
-        Password            = $cred_svcsql02
-        PasswordNeverResets = $true
-        Ensure              = 'Present'
-        Path                = 'CN=Users,DC=ntglab,DC=com'
-        DependsOn           = '[ADDomain]DC'
-    }
+    # ADUser 'SvcSql02'
+    # {
+    #     DomainName          = 'ntglab.com'
+    #     UserName            = $cred_svcsql02.UserName
+    #     Password            = $cred_svcsql02
+    #     PasswordNeverResets = $true
+    #     Ensure              = 'Present'
+    #     Path                = 'CN=Users,DC=ntglab,DC=com'
+    #     DependsOn           = '[ADDomain]DC'
+    # }
     
-    ADGroup 'AddUserToDomainAdmins'
-    {
-        GroupName           = 'Domain Admins'
-        MembersToInclude    = ($cred_adadmin.UserName, $cred_svcsql01.UserName, $cred_svcsql02.UserName)
-        Ensure              = 'Present'
-        DependsOn           = '[ADUser]SvcSql02'
-    }
+    # ADGroup 'AddUserToDomainAdmins'
+    # {
+    #     GroupName           = 'Domain Admins'
+    #     MembersToInclude    = ($cred_adadmin.UserName, $cred_svcsql01.UserName, $cred_svcsql02.UserName)
+    #     Ensure              = 'Present'
+    #     DependsOn           = '[ADUser]SvcSql02'
+    # }
 
     DnsServerAddress 'DnsServerAddress'
     {

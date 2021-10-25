@@ -1,0 +1,1747 @@
+{
+  "version": 4,
+  "terraform_version": "1.0.4",
+  "serial": 1354,
+  "lineage": "307c213e-e0d7-041b-1044-2c3dfb95876f",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_availability_set",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/availabilitySets/test-as",
+            "location": "southeastasia",
+            "managed": true,
+            "name": "test-as",
+            "platform_fault_domain_count": 2,
+            "platform_update_domain_count": 2,
+            "proximity_placement_group_id": null,
+            "resource_group_name": "NTGLab-Test",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "private_nic",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ad_vm",
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-ad-nic",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "aavrsm1cyeuutpwbgvmj22p0ee.ix.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "name": "private-ipconfig",
+                "primary": true,
+                "private_ip_address": "10.0.1.4",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/publicIPAddresses/ad-pip",
+                "subnet_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet"
+              }
+            ],
+            "location": "southeastasia",
+            "mac_address": "00-22-48-57-F2-DC",
+            "name": "private-ad-nic",
+            "private_ip_address": "10.0.1.4",
+            "private_ip_addresses": [
+              "10.0.1.4"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/ad-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        },
+        {
+          "index_key": "sql01_vm",
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "aavrsm1cyeuutpwbgvmj22p0ee.ix.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "name": "private-ipconfig",
+                "primary": true,
+                "private_ip_address": "10.0.1.5",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/publicIPAddresses/sql01-pip",
+                "subnet_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet"
+              }
+            ],
+            "location": "southeastasia",
+            "mac_address": "00-0D-3A-C8-3E-24",
+            "name": "private-sql01-nic",
+            "private_ip_address": "10.0.1.5",
+            "private_ip_addresses": [
+              "10.0.1.5"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql01-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_subnet.az_subnet"
+          ]
+        },
+        {
+          "index_key": "sql02_vm",
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "dns_servers": [],
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "aavrsm1cyeuutpwbgvmj22p0ee.ix.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "name": "private-ipconfig",
+                "primary": true,
+                "private_ip_address": "10.0.1.6",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/publicIPAddresses/sql02-pip",
+                "subnet_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet"
+              }
+            ],
+            "location": "southeastasia",
+            "mac_address": "00-22-48-57-F7-66",
+            "name": "private-sql02-nic",
+            "private_ip_address": "10.0.1.6",
+            "private_ip_addresses": [
+              "10.0.1.6"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql02-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface_security_group_association",
+      "name": "private_nic_assoc",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ad_vm",
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-ad-nic|/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "network_interface_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-ad-nic",
+            "network_security_group_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_network_security_group.az_nsg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_network_interface.private_nic"
+          ]
+        },
+        {
+          "index_key": "sql01_vm",
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic|/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "network_interface_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic",
+            "network_security_group_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_network_security_group.az_nsg",
+            "module.virtual-network.azurerm_subnet.az_subnet"
+          ]
+        },
+        {
+          "index_key": "sql02_vm",
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic|/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "network_interface_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic",
+            "network_security_group_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_network_security_group.az_nsg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_public_ip",
+      "name": "pip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ad_vm",
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "availability_zone": "Zone-Redundant",
+            "domain_name_label": null,
+            "fqdn": null,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/publicIPAddresses/ad-pip",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "20.197.76.179",
+            "ip_tags": {},
+            "ip_version": "IPv4",
+            "location": "southeastasia",
+            "name": "ad-pip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "NTGLab-Test",
+            "reverse_fqdn": null,
+            "sku": "Standard",
+            "tags": {},
+            "timeouts": null,
+            "zones": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg"
+          ]
+        },
+        {
+          "index_key": "sql01_vm",
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "availability_zone": "Zone-Redundant",
+            "domain_name_label": null,
+            "fqdn": null,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/publicIPAddresses/sql01-pip",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "20.197.78.106",
+            "ip_tags": {},
+            "ip_version": "IPv4",
+            "location": "southeastasia",
+            "name": "sql01-pip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "NTGLab-Test",
+            "reverse_fqdn": null,
+            "sku": "Standard",
+            "tags": {},
+            "timeouts": null,
+            "zones": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg"
+          ]
+        },
+        {
+          "index_key": "sql02_vm",
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "availability_zone": "Zone-Redundant",
+            "domain_name_label": null,
+            "fqdn": null,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/publicIPAddresses/sql02-pip",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "20.197.78.103",
+            "ip_tags": {},
+            "ip_version": "IPv4",
+            "location": "southeastasia",
+            "name": "sql02-pip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "NTGLab-Test",
+            "reverse_fqdn": null,
+            "sku": "Standard",
+            "tags": {},
+            "timeouts": null,
+            "zones": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "az_rg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test",
+            "location": "southeastasia",
+            "name": "NTGLab-Test",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_windows_virtual_machine",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ad_vm",
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "additional_unattend_content": [],
+            "admin_password": "P@\u0026\u0026vv0rdAdm1n",
+            "admin_username": "minhnn",
+            "allow_extension_operations": true,
+            "availability_set_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/availabilitySets/TEST-AS",
+            "boot_diagnostics": [],
+            "computer_name": "ad-vm",
+            "custom_data": null,
+            "dedicated_host_id": "",
+            "enable_automatic_updates": true,
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/ad-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "southeastasia",
+            "max_bid_price": -1,
+            "name": "ad-vm",
+            "network_interface_ids": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-ad-nic"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 127,
+                "name": "ad-vm_OsDisk_1_80432d1a739243ec818084cc5db1ebc8",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "patch_mode": "AutomaticByOS",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "10.0.1.4",
+            "private_ip_addresses": [
+              "10.0.1.4"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "20.197.76.179",
+            "public_ip_addresses": [
+              "20.197.76.179"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "secret": [],
+            "size": "Standard_B1ms",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "WindowsServer",
+                "publisher": "MicrosoftWindowsServer",
+                "sku": "2016-Datacenter",
+                "version": "latest"
+              }
+            ],
+            "tags": {},
+            "timeouts": null,
+            "timezone": "SE Asia Standard Time",
+            "virtual_machine_id": "c32d51a4-a469-4bc9-ae71-058cfd37478e",
+            "virtual_machine_scale_set_id": "",
+            "winrm_listener": [],
+            "zone": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main"
+          ]
+        },
+        {
+          "index_key": "sql01_vm",
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "additional_unattend_content": [],
+            "admin_password": "P@\u0026\u0026vv0rdAdm1n",
+            "admin_username": "minhnn",
+            "allow_extension_operations": true,
+            "availability_set_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/availabilitySets/TEST-AS",
+            "boot_diagnostics": [],
+            "computer_name": "sql01-vm",
+            "custom_data": null,
+            "dedicated_host_id": "",
+            "enable_automatic_updates": true,
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql01-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "southeastasia",
+            "max_bid_price": -1,
+            "name": "sql01-vm",
+            "network_interface_ids": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 127,
+                "name": "sql01-vm_OsDisk_1_14e19ef319cb4c31b0aa745da4a13134",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "patch_mode": "AutomaticByOS",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "10.0.1.5",
+            "private_ip_addresses": [
+              "10.0.1.5"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "20.197.78.106",
+            "public_ip_addresses": [
+              "20.197.78.106"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "secret": [],
+            "size": "Standard_B2s",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "WindowsServer",
+                "publisher": "MicrosoftWindowsServer",
+                "sku": "2016-Datacenter",
+                "version": "latest"
+              }
+            ],
+            "tags": {},
+            "timeouts": null,
+            "timezone": "SE Asia Standard Time",
+            "virtual_machine_id": "6c2b44b1-46bf-4c08-87af-987280457896",
+            "virtual_machine_scale_set_id": "",
+            "winrm_listener": [],
+            "zone": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic"
+          ]
+        },
+        {
+          "index_key": "sql02_vm",
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "additional_unattend_content": [],
+            "admin_password": "P@\u0026\u0026vv0rdAdm1n",
+            "admin_username": "minhnn",
+            "allow_extension_operations": true,
+            "availability_set_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/availabilitySets/TEST-AS",
+            "boot_diagnostics": [],
+            "computer_name": "sql02-vm",
+            "custom_data": null,
+            "dedicated_host_id": "",
+            "enable_automatic_updates": true,
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql02-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "southeastasia",
+            "max_bid_price": -1,
+            "name": "sql02-vm",
+            "network_interface_ids": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 127,
+                "name": "sql02-vm_OsDisk_1_7075936ed9c84d52a476efa58272adfc",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "patch_mode": "AutomaticByOS",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "10.0.1.6",
+            "private_ip_addresses": [
+              "10.0.1.6"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "20.197.78.103",
+            "public_ip_addresses": [
+              "20.197.78.103"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "secret": [],
+            "size": "Standard_B2s",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "WindowsServer",
+                "publisher": "MicrosoftWindowsServer",
+                "sku": "2016-Datacenter",
+                "version": "latest"
+              }
+            ],
+            "tags": {},
+            "timeouts": null,
+            "timezone": "SE Asia Standard Time",
+            "virtual_machine_id": "4f6dc445-1b2a-4fee-8233-570e9fa2b4a3",
+            "virtual_machine_scale_set_id": "",
+            "winrm_listener": [],
+            "zone": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.automation-account",
+      "mode": "managed",
+      "type": "azurerm_automation_account",
+      "name": "az_aa",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "dsc_primary_access_key": "w/bQexlOlFeb3wPSdYkEZuZlbmMm7ajU6kiaC5Yf/t+4gEnQXJAN2sfgQBA8hHkVzYTb4lWj/sK/5bofGN+usA==",
+            "dsc_secondary_access_key": "JjojOLzYH5F5Js3xMnU1zhloKEsiXoJ7+hjk2Hu6Qv6xfBXUg96XTtgEO9nKgYZlpNOADx3OOAqP2/7GnNRlpg==",
+            "dsc_server_endpoint": "https://f0dd8a83-6e6c-40f5-92a6-50e39f97f81f.agentsvc.sea.azure-automation.net/accounts/f0dd8a83-6e6c-40f5-92a6-50e39f97f81f",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA",
+            "location": "southeastasia",
+            "name": "Test-AA",
+            "resource_group_name": "NTGLab-Test",
+            "sku_name": "Basic",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.automation-account",
+      "mode": "managed",
+      "type": "azurerm_automation_credential",
+      "name": "az_aa_cred",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "adadmin",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/credentials/cred_adadmin",
+            "name": "cred_adadmin",
+            "password": "P@\u0026\u0026vv0rdAdm1n",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null,
+            "username": "admin"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa"
+          ]
+        },
+        {
+          "index_key": "admin",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/credentials/cred_admin",
+            "name": "cred_admin",
+            "password": "P@\u0026\u0026vv0rdAdm1n",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null,
+            "username": "minhnn"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip"
+          ]
+        },
+        {
+          "index_key": "sql",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/credentials/cred_sql",
+            "name": "cred_sql",
+            "password": "P@\u0026\u0026vv0rdAdm1n",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null,
+            "username": "sa"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        },
+        {
+          "index_key": "store",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/credentials/cred_store",
+            "name": "cred_store",
+            "password": "CRGlJ8r8GQKozTiJ6RrXZAN8KwmBY+PjYPJf7svKRMcAlDsbZk+XCuycd1cG+bbWds49PBcimYObspJlRu/Wow==",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null,
+            "username": "ntglabdevdata"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        },
+        {
+          "index_key": "svcsql01",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/credentials/cred_svcsql01",
+            "name": "cred_svcsql01",
+            "password": "P@\u0026\u0026vv0rdAdm1n",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null,
+            "username": "svc-sql01"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic"
+          ]
+        },
+        {
+          "index_key": "svcsql02",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/credentials/cred_svcsql02",
+            "name": "cred_svcsql02",
+            "password": "P@\u0026\u0026vv0rdAdm1n",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null,
+            "username": "svc-sql02"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.automation-account",
+      "mode": "managed",
+      "type": "azurerm_automation_dsc_configuration",
+      "name": "az_aa_dscc_sql",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ADServer",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "content_embedded": "Configuration ADServer\n{\n#---------------\n# Import Module \n#---------------  \n  Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 9.1.0\n  Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1\n  Import-DscResource -Module ComputerManagementDsc -ModuleVersion 8.4.0\n  Import-DscResource -ModuleName DnsServerDsc -ModuleVersion 3.0.0\n  Import-DscResource -Module NetworkingDsc -ModuleVersion 8.2.0\n\n  $cred_adadmin = Get-AutomationPSCredential 'cred_adadmin'\n  $cred_svcsql01 = Get-AutomationPSCredential 'cred_svcsql01'\n  $cred_svcsql02 = Get-AutomationPSCredential 'cred_svcsql02'\n  $cred_admin = Get-AutomationPSCredential 'cred_admin'\n\n  Node DC1\n  {    \n    xWindowsFeature 'ADDS'\n    {\n        Name   = 'AD-Domain-Services'\n        Ensure = 'Present'\n    }\n\n    xWindowsFeature 'ADDSTools'\n    {\n        Name = \"RSAT-ADDS\"\n        Ensure = \"Present\"\n    }\n\n    xWindowsFeature 'RSAT'\n    {\n        Name   = 'RSAT-AD-PowerShell'\n        Ensure = 'Present'\n    }          \n\n    # Create the ADDS DC\n    ADDomain 'DC' {\n        DomainName                      = 'ntglab.com'\n        Credential                      = $cred_admin\n        SafemodeAdministratorPassword   = $cred_admin\n        ForestMode                      = 'WinThreshold'\n        DependsOn                       = '[xWindowsFeature]ADDS'\n    }   \n    \n    WaitForADDomain 'DscForestWait'\n    {\n        DomainName      = 'ntglab.com'\n        WaitTimeout     = 600\n        RestartCount    = 2\n        Credential      = $cred_admin\n        DependsOn       = '[ADDomain]DC'\n    }\n\n    ADDomainController 'DomainControllerAllProperties'\n    {\n        DomainName                    = 'ntglab.com'\n        Credential                    = $cred_admin\n        SafeModeAdministratorPassword = $cred_admin\n        DatabasePath                  = 'C:\\Windows\\NTDS'\n        LogPath                       = 'C:\\Windows\\Logs'\n        SysvolPath                    = 'C:\\Windows\\SYSVOL'\n        IsGlobalCatalog               = $true\n        DependsOn                     = '[WaitForADDomain]DscForestWait'\n    }\n\n    DnsServerPrimaryZone 'AddPrimaryZone'\n    {\n        Ensure        = 'Present'                \n        Name          = '1.0.10.in-addr.arpa'\n    }\n\n    ADUser 'AdAdmin'\n    {\n        DomainName          = 'ntglab.com'\n        UserName            = $cred_adadmin.UserName\n        Password            = $cred_adadmin\n        PasswordNeverResets = $true\n        Ensure              = 'Present'\n        DependsOn           = '[ADDomain]DC'\n    }\n    \n    ADGroup 'AddAdAdminToDomainAdmins'\n    {\n        GroupName           = 'Domain Admins'\n        MembersToInclude    = $cred_adadmin.UserName\n        Ensure              = 'Present'\n        DependsOn           = '[ADUser]AdAdmin'\n    }\n\n    # ADUser 'SvcSql01'\n    # {\n    #     DomainName          = 'ntglab.com'\n    #     UserName            = $cred_svcsql01.UserName\n    #     Password            = $cred_svcsql01\n    #     PasswordNeverResets = $true\n    #     Ensure              = 'Present'\n    #     Path                = 'CN=Users,DC=ntglab,DC=com'\n    #     DependsOn           = '[ADDomain]DC'\n    # }\n    \n    # ADGroup 'AddSvcSql01ToDomainAdmins'\n    # {\n    #     GroupName           = 'Domain Admins'\n    #     MembersToInclude    = $cred_svcsql01.UserName\n    #     Ensure              = 'Present'\n    #     DependsOn           = '[ADUser]SvcSql01'\n    # }\n\n    # ADUser 'SvcSql02'\n    # {\n    #     DomainName          = 'ntglab.com'\n    #     UserName            = $cred_svcsql02.UserName\n    #     Password            = $cred_svcsql02\n    #     PasswordNeverResets = $true\n    #     Ensure              = 'Present'\n    #     Path                = 'CN=Users,DC=ntglab,DC=com'\n    #     DependsOn           = '[ADDomain]DC'\n    # }\n    \n    # ADGroup 'AddUserToDomainAdmins'\n    # {\n    #     GroupName           = 'Domain Admins'\n    #     MembersToInclude    = ($cred_adadmin.UserName, $cred_svcsql01.UserName, $cred_svcsql02.UserName)\n    #     Ensure              = 'Present'\n    #     DependsOn           = '[ADUser]SvcSql02'\n    # }\n\n    DnsServerAddress 'DnsServerAddress'\n    {\n        Address        = '127.0.0.1'\n        InterfaceAlias = 'Ethernet 2'\n        AddressFamily  = 'IPv4'\n        Validate       = $true\n    }\n\n    Firewall 'AllowFirewallTCP'\n    {\n        Name                  = 'AllowTCP'\n        DisplayName           = 'Allow (TCP-in)'\n        Ensure                = 'Present'\n        Enabled               = 'True'\n        Direction             = 'Inbound'\n        LocalPort             = ('135', '389', '3268', '53', '88', '445')\n        Protocol              = 'TCP'\n        Profile               = ('Domain', 'Private')\n    }\n\n    Firewall 'AllowFirewallUDP'\n    {\n        Name                  = 'AllowUDP'\n        DisplayName           = 'Allow (UDP-in)'\n        Ensure                = 'Present'\n        Enabled               = 'True'\n        Direction             = 'Inbound'\n        LocalPort             = ('389', '53', '88')\n        Protocol              = 'UDP'\n        Profile               = ('Domain', 'Private')\n    }\n  }\n}",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/configurations/ADServer",
+            "location": "southeastasia",
+            "log_verbose": false,
+            "name": "ADServer",
+            "resource_group_name": "NTGLab-Test",
+            "state": "Published",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic"
+          ]
+        },
+        {
+          "index_key": "SqlPrimary",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "content_embedded": "Configuration SqlPrimary\n{\n#---------------\n# Import Module \n#---------------  \n  Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 9.1.0\n  Import-DscResource -ModuleName SqlServerDsc\n  Import-DscResource -Module ComputerManagementDsc -ModuleVersion 8.4.0\n  Import-DscResource -Module NetworkingDsc -ModuleVersion 8.2.0\n  Import-DscResource -ModuleName xFailOverCluster -ModuleVersion 1.16.0\n  Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1\n\n  $store = Get-AutomationPSCredential 'cred_store'\n  $cred_admin = Get-AutomationPSCredential 'cred_admin'\n  $cred_adadmin = Get-AutomationPSCredential 'cred_adadmin'\n  $cred_adjoin = new-object -typename System.Management.Automation.PSCredential -argumentlist ('ntglab.com\\' + $cred_adadmin.UserName, $cred_adadmin.GetNetworkCredential().Password)\n  $cred_svcsql01 = Get-AutomationPSCredential 'cred_svcsql01'\n  # $SqlSvcAccount = ('ntglab.com\\' + $cred_svcsql01.UserName + '$')\n  # $SqlSvcCred = New-Object -typename System.Management.Automation.PSCredential -argumentlist $SqlSvcAccount,$cred_svcsql01.Password\n\n  Node SQL01\n  {\n#-----------------\n# Enable Features\n#-----------------\n    xWindowsFeature 'AddFailoverClusterFeature'\n    {\n      Ensure               = 'Present'\n      Name                 = 'Failover-Clustering'\n      IncludeAllSubFeature = $IncludeAllSubFeature\n    }\n\n    xWindowsFeature 'AddFailoverClusterTools'\n    {\n        Ensure = \"Present\"\n        Name   = \"RSAT-Clustering-Mgmt\"\n    }\n\n    xWindowsFeature 'AddRemoteServerAdministrationToolsClusteringPowerShellFeature' \n    {\n      Ensure               = 'Present'\n      Name                 = 'RSAT-Clustering-PowerShell'\n      IncludeAllSubFeature = $IncludeAllSubFeature\n      DependsOn            = '[xWindowsFeature]AddFailoverClusterFeature'\n    }\n\n    xWindowsFeature 'AddRemoteServerAdministrationToolsClusteringCmdInterfaceFeature' \n    {\n      Ensure               = 'Present'\n      Name                 = 'RSAT-Clustering-CmdInterface'\n      IncludeAllSubFeature = $IncludeAllSubFeature\n      DependsOn            = '[xWindowsFeature]AddRemoteServerAdministrationToolsClusteringPowerShellFeature'\n    }\n\n    xWindowsFeature 'ADPS'\n    {\n      Name = \"RSAT-AD-PowerShell\"\n      Ensure = \"Present\"\n    }\n\n    xWindowsFeature 'NetFramework'\n    {\n      Name   = 'NET-Framework-45-Core'\n      Ensure = 'Present'\n    }\n#-------------\n# Join Domain\n#-------------\n    Firewall 'AllowFirewallTCP'\n    {\n        Name        = 'AllowTCP'\n        DisplayName = 'Allow (TCP-in)'\n        Ensure      = 'Present'\n        Enabled     = 'True'\n        Direction   = 'Inbound'\n        LocalPort   = ('1433', '5022', '59999', '58888')\n        Protocol    = 'TCP'\n        Profile     = ('Domain', 'Private')\n    }\n\n    DnsServerAddress 'DnsServerAddress'\n    {\n      Address        = '10.0.1.4'\n      InterfaceAlias = 'Ethernet 2'\n      AddressFamily  = 'IPv4'\n      Validate       = $true\n      \n    }\n\n    WaitForADDomain 'WaitDomain'\n    {\n      DomainName    = 'ntglab.com'\n      WaitTimeout   = 600\n      RestartCount  = 2\n      Credential    = $cred_admin\n    }\n\n    Computer 'JoinDomain'\n    {\n      Name       = 'SQL01'\n      DomainName = 'ntglab.com'\n      Credential = $cred_adjoin\n      DependsOn  = '[WaitForADDomain]WaitDomain'\n    }\n\n    xGroup 'AddUsertoLocalAdmin'\n    {\n      GroupName         = 'Administrators'\n      Ensure            = 'Present'\n      MembersToInclude  = ($cred_adadmin.UserName, $cred_svcsql01.UserName)\n      Credential        = $cred_adadmin\n      DependsOn         = '[Computer]JoinDomain'\n    }\n#------------------\n# Failover Cluster\n#------------------\n    xCluster 'CreateCluster' \n    {\n      Name                          = 'SqlCluster'\n      StaticIPAddress               = '10.0.1.11/32'\n      DomainAdministratorCredential = $cred_adadmin\n      DependsOn                     = '[xWindowsFeature]AddRemoteServerAdministrationToolsClusteringCmdInterfaceFeature', '[Computer]JoinDomain'\n    }\n\n    Script  'AddProbeToFailoverClusterResource'\n    {\n      GetScript  = {\n        return @{ 'Result' = $(Get-ClusterResource \"Cluster IP Address\" | Get-ClusterParameter -Name ProbePort ).Value} \n      }                    \n      SetScript  = {\n        $Resource = Get-ClusterResource \"Cluster IP Address\"\n        Get-ClusterResource \"Cluster IP Address\"| Set-ClusterParameter -Multiple @{\"Address\"=\"10.0.1.11\";\"ProbePort\"=58888;\"SubnetMask\"=\"255.255.255.0\";\"Network\"=\"Cluster Network 1\";\"EnableDhcp\"=0}\n        Stop-ClusterResource $Resource\n        Start-ClusterResource 'Cluster Name'\n      }\n      TestScript = {\n        return($(Get-ClusterResource -name \"Cluster IP Address\" | Get-ClusterParameter -Name ProbePort ).Value -eq 58888)\n      }\n      PsDscRunAsCredential = $cred_adadmin\n      DependsON = \"[xCluster]CreateCluster\"\n    }\n\n    xClusterQuorum 'SetQuorumToNodeAndCloudMajorityConfig' \n    {\n      IsSingleInstance        = 'Yes'\n      Type                    = 'NodeAndCloudMajority'\n      Resource                = $store.UserName\n      StorageAccountAccessKey = $store.GetNetworkCredential().Password\n      DependsOn               = '[xCluster]CreateCluster'\n    }\n\n    xArchive 'GetSource'\n    {\n      Ensure      = \"Present\"\n      Path        = \"\\\\ntglabdevdata.file.core.windows.net\\sqlsources\\SQL2019.zip\"\n      Destination = \"C:\\Packages\"\n      Credential  = $store\n    }\n\n# #------------------\n# # Setup SQL Server\n# #------------------\n#     SqlSetup 'DB'\n#     {\n#       InstanceName          = 'INSTANCE1'\n#       SourcePath            = 'C:\\Packages\\SQL2019'\n#       Features              = 'SQLENGINE,FullText,Replication'\n#       SQLCollation          = 'SQL_Latin1_General_CP1_CI_AS'\n\n#       SQLSvcAccount         = Get-AutomationPSCredential 'cred_svcsql01'\n#       AgtSvcAccount         = Get-AutomationPSCredential 'cred_svcsql01'\n#       SQLSysAdminAccounts   = 'ntglab.com\\admin', $cred_adadmin.UserName\n      \n#       InstallSharedDir      = 'C:\\Program Files\\Microsoft SQL Server'\n#       InstallSharedWOWDir   = 'C:\\Program Files (x86)\\Microsoft SQL Server'\n#       InstanceDir           = 'C:\\Program Files\\Microsoft SQL Server'\n\n#       SecurityMode          = 'SQL'\n#       SAPwd                 = (Get-AutomationPSCredential 'cred_sql')\n#       #SQLSvcAccount         = $SqlSvcCred\n\n#       InstallSQLDataDir     = 'C:\\MSSQL\\Data'\n#       SQLUserDBDir          = 'C:\\MSSQL\\Data'\n#       SQLUserDBLogDir       = 'C:\\MSSQL\\Log'\n#       SQLTempDBDir          = 'C:\\MSSQL\\Temp'\n#       SQLTempDBLogDir       = 'C:\\MSSQL\\Temp'\n#       SQLBackupDir          = 'C:\\MSSQL\\Backup'\n\n#       UpdateEnabled         = 'False'\n#       SQLSvcStartupType     = 'Automatic'\n#       PsDscRunAsCredential  = (Get-AutomationPSCredential 'cred_adadmin')\n#       DependsOn             = '[xArchive]GetSource'\n#     }\n\n#     SqlProtocol 'ChangeTcpIpOnDefaultInstance'\n#     {\n#       DependsOn              = '[SqlSetup]DB'\n#       InstanceName           = 'INSTANCE1'\n#       ProtocolName           = 'TcpIp'\n#       Enabled                = $true\n#       ListenOnAllIpAddresses = $true\n#       KeepAlive              = 20000\n#     }\n\n#     SqlConfiguration 'AllowRemoteAccess'\n#     {\n#       DependsOn      ='[SqlSetup]DB'\n#       InstanceName   = 'INSTANCE1'\n#       OptionName     = 'remote access'\n#       OptionValue    = 1\n#       RestartService = $true\n#     }\n\n#     SqlWindowsFirewall 'AllowFirewall'\n#     {\n#       DependsOn             = '[SqlSetup]DB'\n#       InstanceName          = 'INSTANCE1'\n#       Features              = 'SQLEngine'\n#       SourcePath            = 'C:\\Packages\\SQL2019'\n#     }\n\n    # SqlDatabase 'CreateDbaDatabase'\n    # {\n    #   DependsOn             = '[SqlSetup]DB'\n    #   InstanceName          = 'MSSQLSERVER'\n    #   Name                  = 'DBA'\n    # }\n\n    # Adding the required service account to allow the cluster to log into SQL\n    # SqlLogin 'AddWindowsUserSqlSvc'\n    # {\n    #   Ensure               = 'Present'\n    #   Name                 = $SqlSvcAccount\n    #   LoginType            = 'WindowsUser'\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'INSTANCE1'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlSetup]DB'\n    # }\n\n    # SqlLogin 'AddWindowsUserClusSvc'\n    # {\n    #   Ensure               = 'Present'\n    #   Name                 = 'NT SERVICE\\ClusSvc'\n    #   LoginType            = 'WindowsUser'\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'INSTANCE1'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlSetup]DB'\n    # }\n\n    # # Add the required permissions to the cluster service login\n    # SqlPermission 'SQLConfigureServerPermissionSYSTEMSvc'\n    # {       \n    #   Ensure               = 'Present'\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'INSTANCE1'\n    #   Principal            = $SqlSvcAccount\n    #   Permission           = 'AlterAnyAvailabilityGroup', 'ViewServerState', 'AlterAnyEndPoint', 'ConnectSql'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlLogin]AddWindowsUserSqlSvc'\n    # }\n\n    # # SqlPermission 'AddNTServiceClusSvcPermissions'\n    # {\n    #   Ensure               = 'Present'\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'INSTANCE1'\n    #   Principal            = 'NT SERVICE\\ClusSvc'\n    #   Permission           = 'AlterAnyAvailabilityGroup', 'ViewServerState'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlLogin]AddWindowsUserClusSvc'\n    # }\n\n    # SqlMaxDop 'Set_SqlMaxDop_ToAuto'\n    # {\n    #   Ensure                  = 'Present'\n    #   DynamicAlloc            = $true\n    #   ServerName              = 'SQL01'\n    #   InstanceName            = 'INSTANCE1'\n    #   PsDscRunAsCredential    = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn               = '[SqlSetup]DB'\n    # }\n\n    # SqlMemory 'Set_SQLServerMaxMemory_ToAuto'\n    # {\n    #   Ensure               = 'Present'\n    #   DynamicAlloc         = $true\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'INSTANCE1'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlSetup]DB'\n    # }\n\n    # SqlEndpoint 'HADREndpoint'\n    # {\n    #   EndPointName         = 'HADR'\n    #   Ensure               = 'Present'\n    #   EndpointType         = 'DatabaseMirroring'\n    #   Port                 = 5022\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlSetup]DB', '[xCluster]CreateCluster'\n    # }\n\n    # SqlAlwaysOnService 'EnableAlwaysOn'\n    # {\n    #   Ensure               = 'Present'\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   RestartTimeout       = 120\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsOn            = '[SqlEndpoint]HADREndpoint'\n    # }\n\n    # SqlAG 'AddAG'\n    # {\n    #   Ensure               = 'Present'\n    #   Name                 = 'TestAG'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   ServerName           = 'SQL01'\n    #   AvailabilityMode     = 'SynchronousCommit'\n    #   FailoverMode         = 'Automatic'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')  \n    #   DependsOn            = '[SqlAlwaysOnService]EnableAlwaysOn', '[SqlEndpoint]HADREndpoint', '[SqlPermission]AddNTServiceClusSvcPermissions'\n    # }\n\n    # SqlAGListener 'AvailabilityGroupListener'\n    # {\n    #   Ensure               = 'Present'\n    #   ServerName           = 'SQL01'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   AvailabilityGroup    = 'TestAG'\n    #   Name                 = 'TestAG'\n    #   IpAddress            = '10.0.1.10/255.255.255.0'\n    #   Port                 = '1433'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')\n    #   DependsON            = '[SqlAG]AddAG'\n    # }\n\n    # Script  'AddProbeToSQLClusterResource'\n    # {\n    #   GetScript  = {\n    #     return @{ 'Result' = $(Get-ClusterResource 'TestAG_10.0.1.10' | Get-ClusterParameter -Name ProbePort ).Value}\n    #   }                    \n    #   SetScript  = { \n    #     Get-ClusterResource 'TestAG_10.0.1.10'| Set-ClusterParameter -Multiple @{\"Address\"=\"10.0.1.10\";\"ProbePort\"=59999;\"SubnetMask\"=\"255.255.255.0\";\"Network\"=\"Cluster Network 1\";\"EnableDhcp\"=0}\n    #   }\n    #   TestScript = {\n    #     return($(Get-ClusterResource 'TestAG_10.0.1.10' | Get-ClusterParameter -Name ProbePort ).Value -eq 59999)\n    #   }\n    #   PsDscRunAsCredential = $cred_adadmin\n    #   DependsON = \"[SqlAGListener]AvailabilityGroupListener\"\n    # }\n  }\n}",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/configurations/SqlPrimary",
+            "location": "southeastasia",
+            "log_verbose": false,
+            "name": "SqlPrimary",
+            "resource_group_name": "NTGLab-Test",
+            "state": "Published",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa"
+          ]
+        },
+        {
+          "index_key": "SqlSecondary",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "content_embedded": "Configuration SqlSecondary\n{\n#---------------\n# Import Module \n#---------------  \n  Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 9.1.0\n  Import-DscResource -ModuleName SqlServerDsc\n  Import-DscResource -Module ComputerManagementDsc -ModuleVersion 8.4.0\n  Import-DscResource -Module NetworkingDsc -ModuleVersion 8.2.0\n  Import-DscResource -ModuleName xFailOverCluster -ModuleVersion 1.16.0\n  Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1\n\n  $store = Get-AutomationPSCredential 'cred_store'\n  $cred_admin = Get-AutomationPSCredential 'cred_admin'\n  $cred_adadmin = Get-AutomationPSCredential 'cred_adadmin'\n\n  Node SQL02\n  {\n#-----------------\n# Enable Features\n#-----------------\n    xWindowsFeature 'AddFailoverFeature'\n    {\n      Ensure = 'Present'\n      Name   = 'Failover-clustering'\n    }\n\n    xWindowsFeature 'AddRemoteServerAdministrationToolsClusteringPowerShellFeature'\n    {\n      Ensure    = 'Present'\n      Name      = 'RSAT-Clustering-PowerShell'\n      DependsOn = '[xWindowsFeature]AddFailoverFeature'\n    }\n\n    xWindowsFeature 'AddRemoteServerAdministrationToolsClusteringCmdInterfaceFeature'\n    {\n      Ensure    = 'Present'\n      Name      = 'RSAT-Clustering-CmdInterface'\n      DependsOn = '[xWindowsFeature]AddRemoteServerAdministrationToolsClusteringPowerShellFeature'\n    }\n\n    xWindowsFeature ADPS\n    {\n      Name = \"RSAT-AD-PowerShell\"\n      Ensure = \"Present\"\n    }\n\n    xWindowsFeature 'NetFramework'\n    {\n      Name   = 'NET-Framework-45-Core'\n      Ensure = 'Present'\n    }\n#-------------\n# Join Domain\n#-------------\n    Firewall 'AllowFirewallTCP'\n    {\n        Name        = 'AllowTCP'\n        DisplayName = 'Allow (TCP-in)'\n        Ensure      = 'Present'\n        Enabled     = 'True'\n        Direction   = 'Inbound'\n        LocalPort   = ('1433', '5022', '59999', '58888')\n        Protocol    = 'TCP'\n        Profile     = ('Domain', 'Private')\n    }\n\n    DnsServerAddress 'DnsServerAddress'\n    {\n      Address        = '10.0.1.4'\n      InterfaceAlias = 'Ethernet 2'\n      AddressFamily  = 'IPv4'\n      Validate       = $true\n      \n    }\n\n    WaitForADDomain 'WaitDomain'\n    {\n      DomainName    = 'ntglab.com'\n      WaitTimeout   = 600\n      RestartCount  = 2\n      Credential    = (Get-AutomationPSCredential -Name \"cred_admin\")\n    }\n\n    Computer 'JoinDomain'\n    {\n      Name       = 'SQL02'\n      DomainName = 'ntglab.com'\n      Credential = (Get-AutomationPSCredential -Name \"cred_adadmin\")\n      DependsOn  = '[WaitForADDomain]WaitDomain'\n    }\n\n    xGroup 'AddUsertoLocalAdmin'\n    {\n      GroupName         = 'Administrators'\n      Ensure            = 'Present'\n      MembersToInclude  = @('ntglab.com\\admin', $cred_svcsql02.UserName)\n      Credential        = (Get-AutomationPSCredential -Name \"cred_admin\")\n      DependsOn         = '[Computer]JoinDomain'\n    }\n#------------------\n# Failover Cluster\n#------------------\n    # xWaitForCluster 'WaitForCluster'\n    # {\n    #   Name             = 'SqlCluster'\n    #   RetryIntervalSec = 10\n    #   RetryCount       = 60\n    #   DependsOn        = '[xWindowsFeature]AddRemoteServerAdministrationToolsClusteringCmdInterfaceFeature'\n    # }\n\n    # Script 'JoinExistingCluster'\n    # {\n    #   GetScript = { \n    #       return @{ 'Result' = $true }\n    #   }\n    #   SetScript = {\n    #       # $targetNodeName = $env:COMPUTERNAME\n    #       Add-ClusterNode -Name 'SQL02' -Cluster 'SQL01'\n    #   }\n    #   TestScript = {\n    #       # $targetNodeName = $env:COMPUTERNAME\n    #       $(Get-ClusterNode -Cluster 'SQL01').Name -contains 'SQL02'\n    #   }\n    #   DependsOn = \"[xWaitForCluster]WaitForCluster\"\n    #   PsDscRunAsCredential = $cred\n    # }\n\n    # xArchive 'GetSource'\n    # {\n    #   Ensure      = \"Present\"\n    #   Path        = \"\\\\ntglabdevdata.file.core.windows.net\\sqlsources\\SQL2019.zip\"\n    #   Destination = \"C:\\Packages\"\n    #   Credential  = (Get-AutomationPSCredential 'cred_store')\n    # }\n\n#------------------\n# Setup SQL Server\n#------------------\n    # SqlSetup 'DB'\n    # {\n    #   DependsOn             = '[xArchive]GetSource'\n    #   InstanceName          = 'MSSQLSERVER'\n    #   SourcePath            = 'C:\\Packages\\SQL2017'\n    #   Features              = 'SQLENGINE,FullText,Replication'\n    #   InstallSharedDir      = 'C:\\Program Files\\Microsoft SQL Server'\n    #   InstallSharedWOWDir   = 'C:\\Program Files (x86)\\Microsoft SQL Server'\n    #   InstanceDir           = 'C:\\Program Files\\Microsoft SQL Server'\n    #   SQLSysAdminAccounts   = @('Administrators')\n    #   InstallSQLDataDir     = 'C:\\Program Files\\Microsoft SQL Server\\MSSQL19.MSSQLSERVER\\MSSQL\\Data'\n    #   SQLUserDBDir          = 'C:\\Program Files\\Microsoft SQL Server\\MSSQL19.MSSQLSERVER\\MSSQL\\Data'\n    #   SQLUserDBLogDir       = 'C:\\Program Files\\Microsoft SQL Server\\MSSQL19.MSSQLSERVER\\MSSQL\\Data'\n    #   SQLTempDBDir          = 'C:\\Program Files\\Microsoft SQL Server\\MSSQL19.MSSQLSERVER\\MSSQL\\Data'\n    #   SQLTempDBLogDir       = 'C:\\Program Files\\Microsoft SQL Server\\MSSQL19.MSSQLSERVER\\MSSQL\\Data'\n    #   SQLBackupDir          = 'C:\\Program Files\\Microsoft SQL Server\\MSSQL19.MSSQLSERVER\\MSSQL\\Data'\n    #   SecurityMode          = 'SQL'\n    #   SAPwd                 = (Get-AutomationPSCredential 'cred_sql')\n    #   UpdateEnabled         = $true\n    #   SQLSvcStartupType     = 'Automatic'\n    # }\n\n    # SqlProtocol 'ChangeTcpIpOnDefaultInstance'\n    # {\n    #   DependsOn              = '[SqlSetup]DB'\n    #   InstanceName           = 'MSSQLSERVER'\n    #   ProtocolName           = 'TcpIp'\n    #   Enabled                = $true\n    #   ListenOnAllIpAddresses = $true\n    #   KeepAlive              = 20000\n    # }\n\n    # SqlConfiguration 'AllowRemoteAccess'\n    # {\n    #   DependsOn      ='[SqlSetup]DB'\n    #   InstanceName   = 'MSSQLSERVER'\n    #   OptionName     = 'remote access'\n    #   OptionValue    = 1\n    #   RestartService = $true\n    # }\n\n    # SqlWindowsFirewall 'AllowFirewall'\n    # {\n    #   DependsOn             = '[SqlSetup]DB'\n    #   InstanceName          = 'MSSQLSERVER'\n    #   Features              = 'SQLEngine'\n    #   SourcePath            = 'C:\\Packages\\SQL2017'\n    # }\n\n    # SqlLogin 'AddNTServiceClusSvc'\n    # {\n    #   Ensure               = 'Present'\n    #   Name                 = 'NT SERVICE\\ClusSvc'\n    #   LoginType            = 'WindowsUser'\n    #   ServerName           = 'SQL02'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_sqladuser')   \n    #   DependsOn            = '[SqlSetup]DB', '[Script]JoinExistingCluster'\n    # }\n\n    # SqlPermission 'AddNTServiceClusSvcPermissions'\n    # {       \n    #   Ensure               = 'Present'\n    #   ServerName           = 'SQL02'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   Principal            = 'NT SERVICE\\ClusSvc'\n    #   Permission           = 'AlterAnyAvailabilityGroup', 'ViewServerState'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_sqladuser')\n    #   DependsOn            = '[SqlLogin]AddNTServiceClusSvc'\n    # }\n\n    # SqlEndpoint 'HADREndpoint'\n    # {\n    #   EndPointName         = 'HADR'\n    #   Ensure               = 'Present'\n    #   EndpointType         = 'DatabaseMirroring'\n    #   Port                 = 5022\n    #   ServerName           = 'SQL02'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_sqladuser')\n    #   DependsOn            = '[SqlSetup]DB', '[Script]JoinExistingCluster'\n    # }\n\n    # SqlAlwaysOnService 'EnableAlwaysOn'\n    # {\n    #   Ensure               = 'Present'\n    #   ServerName           = 'SQL02'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   RestartTimeout       = 120\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_sqladuser')\n    #   DependsOn            = '[SqlSetup]DB', '[Script]JoinExistingCluster'\n    # }\n\n    # SqlWaitForAG 'SQLConfigureAG-WaitAG'\n    # {\n    #   Name                 = 'TestAG'\n    #   InstanceName         = 'MSSQLSERVER'\n    #   RetryIntervalSec     = 30\n    #   RetryCount           = 40\n    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_sqladuser')\n    # }\n\n    # SqlAGReplica 'AddReplica'\n    # {\n    #   Ensure                     = 'Present'\n    #   Name                       = 'SQL02'\n    #   AvailabilityGroupName      = 'TestAG'\n    #   ServerName                 = 'SQL02'\n    #   InstanceName               = 'MSSQLSERVER'\n    #   PrimaryReplicaServerName   = 'SQL01'\n    #   PrimaryReplicaInstanceName = 'MSSQLSERVER'\n    #   ProcessOnlyOnActiveNode    = $true\n    #   AvailabilityMode           = 'SynchronousCommit'\n    #   FailoverMode               = 'Automatic'\n    #   PsDscRunAsCredential       = (Get-AutomationPSCredential 'cred_sqladuser')\n    #   DependsOn                  = '[SqlWaitForAG]SQLConfigureAG-WaitAG'\n    # }\n  }\n}",
+            "description": "",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/configurations/SqlSecondary",
+            "location": "southeastasia",
+            "log_verbose": false,
+            "name": "SqlSecondary",
+            "resource_group_name": "NTGLab-Test",
+            "state": "Published",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.automation-account",
+      "mode": "managed",
+      "type": "azurerm_automation_module",
+      "name": "az_aa_module",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ActiveDirectoryDsc",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/modules/ActiveDirectoryDsc",
+            "module_link": [
+              {
+                "hash": [],
+                "uri": "https://www.powershellgallery.com/api/v2/package/ActiveDirectoryDsc/6.0.1"
+              }
+            ],
+            "name": "ActiveDirectoryDsc",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": {
+              "create": "15m",
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo5MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main"
+          ]
+        },
+        {
+          "index_key": "DnsServerDsc",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/modules/DnsServerDsc",
+            "module_link": [
+              {
+                "hash": [],
+                "uri": "https://www.powershellgallery.com/api/v2/package/DnsServerDsc/3.0.0"
+              }
+            ],
+            "name": "DnsServerDsc",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": {
+              "create": "15m",
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo5MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        },
+        {
+          "index_key": "NetworkingDsc",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/modules/NetworkingDsc",
+            "module_link": [
+              {
+                "hash": [],
+                "uri": "https://www.powershellgallery.com/api/v2/package/NetworkingDsc/8.2.0"
+              }
+            ],
+            "name": "NetworkingDsc",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": {
+              "create": "15m",
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo5MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic"
+          ]
+        },
+        {
+          "index_key": "SqlServerDsc",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/modules/SqlServerDsc",
+            "module_link": [
+              {
+                "hash": [],
+                "uri": "https://www.powershellgallery.com/api/v2/package/SqlServerDsc/15.1.1"
+              }
+            ],
+            "name": "SqlServerDsc",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": {
+              "create": "15m",
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo5MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip"
+          ]
+        },
+        {
+          "index_key": "xFailOverCluster",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/modules/xFailOverCluster",
+            "module_link": [
+              {
+                "hash": [],
+                "uri": "https://www.powershellgallery.com/api/v2/package/xFailOverCluster/1.16.0"
+              }
+            ],
+            "name": "xFailOverCluster",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": {
+              "create": "15m",
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo5MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main"
+          ]
+        },
+        {
+          "index_key": "xPSDesiredStateConfiguration",
+          "schema_version": 0,
+          "attributes": {
+            "automation_account_name": "Test-AA",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Automation/automationAccounts/Test-AA/modules/xPSDesiredStateConfiguration",
+            "module_link": [
+              {
+                "hash": [],
+                "uri": "https://www.powershellgallery.com/api/v2/package/xPSDesiredStateConfiguration/9.1.0"
+              }
+            ],
+            "name": "xPSDesiredStateConfiguration",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": {
+              "create": "15m",
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo5MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.automation-account",
+      "mode": "managed",
+      "type": "azurerm_template_deployment",
+      "name": "ComputerManagementDsc",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "deployment_mode": "Incremental",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Resources/deployments/ComputerManagementDsc_2018d164",
+            "name": "ComputerManagementDsc_2018d164",
+            "outputs": {},
+            "parameters": {
+              "automationAccount": "Test-AA",
+              "contentLink": "https://www.powershellgallery.com/api/v2/package/ComputerManagementDsc/8.4.0",
+              "moduleName": "ComputerManagementDsc",
+              "region": "southeastasia"
+            },
+            "parameters_body": null,
+            "resource_group_name": "NTGLab-Test",
+            "template_body": "{\"$schema\":\"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{\"automationAccount\":{\"type\":\"string\"},\"contentLink\":{\"type\":\"string\"},\"moduleName\":{\"type\":\"string\"},\"region\":{\"type\":\"string\"}},\"resources\":[{\"apiVersion\":\"2015-10-31\",\"location\":\"[parameters('region')]\",\"name\":\"[concat(parameters('automationAccount'), '/', parameters('moduleName'))]\",\"properties\":{\"contentLink\":{\"uri\":\"[parameters('contentLink')]\"}},\"type\":\"Microsoft.Automation/automationAccounts/modules\"}]}",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMDgwMDAwMDAwMDAwMCwiZGVsZXRlIjoxMDgwMDAwMDAwMDAwMCwicmVhZCI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEwODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.automation-account",
+      "mode": "managed",
+      "type": "azurerm_virtual_machine_extension",
+      "name": "az_aa_ext",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "ad_vm",
+          "schema_version": 0,
+          "attributes": {
+            "auto_upgrade_minor_version": true,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/ad-vm/extensions/Microsoft.Powershell.DSC",
+            "name": "Microsoft.Powershell.DSC",
+            "protected_settings": "        {\n            \"configurationArguments\": {\n                    \"RegistrationKey\": {\n                        \"userName\": \"NOT_USED\",\n                        \"Password\": \"w/bQexlOlFeb3wPSdYkEZuZlbmMm7ajU6kiaC5Yf/t+4gEnQXJAN2sfgQBA8hHkVzYTb4lWj/sK/5bofGN+usA==\"\n                    }\n            }\n        }\n",
+            "publisher": "Microsoft.Powershell",
+            "settings": "{\"configurationArguments\":{\"ActionAfterReboot\":\"continueConfiguration\",\"AllowModuleOverwrite\":false,\"ConfigurationMode\":\"ApplyAndAutoCorrect\",\"ConfigurationModeFrequencyMins\":15,\"RebootNodeIfNeeded\":true,\"RefreshFrequencyMins\":30,\"RegistrationUrl\":\"https://f0dd8a83-6e6c-40f5-92a6-50e39f97f81f.agentsvc.sea.azure-automation.net/accounts/f0dd8a83-6e6c-40f5-92a6-50e39f97f81f\"}}",
+            "tags": {},
+            "timeouts": null,
+            "type": "DSC",
+            "type_handler_version": "2.77",
+            "virtual_machine_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/ad-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa"
+          ]
+        },
+        {
+          "index_key": "sql01_vm",
+          "schema_version": 0,
+          "attributes": {
+            "auto_upgrade_minor_version": true,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql01-vm/extensions/Microsoft.Powershell.DSC",
+            "name": "Microsoft.Powershell.DSC",
+            "protected_settings": "        {\n            \"configurationArguments\": {\n                    \"RegistrationKey\": {\n                        \"userName\": \"NOT_USED\",\n                        \"Password\": \"w/bQexlOlFeb3wPSdYkEZuZlbmMm7ajU6kiaC5Yf/t+4gEnQXJAN2sfgQBA8hHkVzYTb4lWj/sK/5bofGN+usA==\"\n                    }\n            }\n        }\n",
+            "publisher": "Microsoft.Powershell",
+            "settings": "{\"configurationArguments\":{\"ActionAfterReboot\":\"continueConfiguration\",\"AllowModuleOverwrite\":false,\"ConfigurationMode\":\"ApplyAndAutoCorrect\",\"ConfigurationModeFrequencyMins\":15,\"RebootNodeIfNeeded\":true,\"RefreshFrequencyMins\":30,\"RegistrationUrl\":\"https://f0dd8a83-6e6c-40f5-92a6-50e39f97f81f.agentsvc.sea.azure-automation.net/accounts/f0dd8a83-6e6c-40f5-92a6-50e39f97f81f\"}}",
+            "tags": {},
+            "timeouts": null,
+            "type": "DSC",
+            "type_handler_version": "2.77",
+            "virtual_machine_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql01-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main"
+          ]
+        },
+        {
+          "index_key": "sql02_vm",
+          "schema_version": 0,
+          "attributes": {
+            "auto_upgrade_minor_version": true,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql02-vm/extensions/Microsoft.Powershell.DSC",
+            "name": "Microsoft.Powershell.DSC",
+            "protected_settings": "        {\n            \"configurationArguments\": {\n                    \"RegistrationKey\": {\n                        \"userName\": \"NOT_USED\",\n                        \"Password\": \"w/bQexlOlFeb3wPSdYkEZuZlbmMm7ajU6kiaC5Yf/t+4gEnQXJAN2sfgQBA8hHkVzYTb4lWj/sK/5bofGN+usA==\"\n                    }\n            }\n        }\n",
+            "publisher": "Microsoft.Powershell",
+            "settings": "{\"configurationArguments\":{\"ActionAfterReboot\":\"continueConfiguration\",\"AllowModuleOverwrite\":false,\"ConfigurationMode\":\"ApplyAndAutoCorrect\",\"ConfigurationModeFrequencyMins\":15,\"RebootNodeIfNeeded\":true,\"RefreshFrequencyMins\":30,\"RegistrationUrl\":\"https://f0dd8a83-6e6c-40f5-92a6-50e39f97f81f.agentsvc.sea.azure-automation.net/accounts/f0dd8a83-6e6c-40f5-92a6-50e39f97f81f\"}}",
+            "tags": {},
+            "timeouts": null,
+            "type": "DSC",
+            "type_handler_version": "2.77",
+            "virtual_machine_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Compute/virtualMachines/sql02-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_availability_set.main",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "azurerm_windows_virtual_machine.main",
+            "module.automation-account.azurerm_automation_account.az_aa"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.load-balancer",
+      "mode": "managed",
+      "type": "azurerm_lb",
+      "name": "az_lb_internal",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "frontend_ip_configuration": [
+              {
+                "availability_zone": "Zone-Redundant",
+                "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/frontendIPConfigurations/frontend1",
+                "inbound_nat_rules": [],
+                "load_balancer_rules": [
+                  "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/AlwaysOnRule"
+                ],
+                "name": "frontend1",
+                "outbound_rules": [],
+                "private_ip_address": "10.0.1.10",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "",
+                "public_ip_prefix_id": "",
+                "subnet_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet",
+                "zones": []
+              },
+              {
+                "availability_zone": "Zone-Redundant",
+                "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/frontendIPConfigurations/frontend2",
+                "inbound_nat_rules": [],
+                "load_balancer_rules": [
+                  "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/WSFCRule"
+                ],
+                "name": "frontend2",
+                "outbound_rules": [],
+                "private_ip_address": "10.0.1.11",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "",
+                "public_ip_prefix_id": "",
+                "subnet_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet",
+                "zones": []
+              }
+            ],
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB",
+            "location": "southeastasia",
+            "name": "Test-LB",
+            "private_ip_address": "10.0.1.10",
+            "private_ip_addresses": [
+              "10.0.1.10",
+              "10.0.1.11"
+            ],
+            "resource_group_name": "NTGLab-Test",
+            "sku": "Standard",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.load-balancer",
+      "mode": "managed",
+      "type": "azurerm_lb_backend_address_pool",
+      "name": "az_lb_bepool",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "backend_address": [],
+            "backend_ip_configurations": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic/ipConfigurations/private-ipconfig",
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic/ipConfigurations/private-ipconfig"
+            ],
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "load_balancing_rules": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/AlwaysOnRule",
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/WSFCRule"
+            ],
+            "loadbalancer_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB",
+            "name": "BackEndAddressPool",
+            "outbound_rules": [],
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.load-balancer",
+      "mode": "managed",
+      "type": "azurerm_lb_probe",
+      "name": "az_lbprobe",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "frontend1",
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/probes/AlwaysOnProbe",
+            "interval_in_seconds": 15,
+            "load_balancer_rules": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/AlwaysOnRule"
+            ],
+            "loadbalancer_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB",
+            "name": "AlwaysOnProbe",
+            "number_of_probes": 2,
+            "port": 59999,
+            "protocol": "Tcp",
+            "request_path": "",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        },
+        {
+          "index_key": "frontend2",
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/probes/WSFCProbe",
+            "interval_in_seconds": 15,
+            "load_balancer_rules": [
+              "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/WSFCRule"
+            ],
+            "loadbalancer_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB",
+            "name": "WSFCProbe",
+            "number_of_probes": 2,
+            "port": 58888,
+            "protocol": "Tcp",
+            "request_path": "",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.load-balancer",
+      "mode": "managed",
+      "type": "azurerm_lb_rule",
+      "name": "az_lbrule",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "frontend1",
+          "schema_version": 0,
+          "attributes": {
+            "backend_address_pool_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "backend_port": 1433,
+            "disable_outbound_snat": false,
+            "enable_floating_ip": true,
+            "enable_tcp_reset": false,
+            "frontend_ip_configuration_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/frontendIPConfigurations/frontend1",
+            "frontend_ip_configuration_name": "frontend1",
+            "frontend_port": 1433,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/AlwaysOnRule",
+            "idle_timeout_in_minutes": 4,
+            "load_distribution": "Default",
+            "loadbalancer_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB",
+            "name": "AlwaysOnRule",
+            "probe_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/probes/AlwaysOnProbe",
+            "protocol": "Tcp",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal",
+            "module.load-balancer.azurerm_lb_backend_address_pool.az_lb_bepool",
+            "module.load-balancer.azurerm_lb_probe.az_lbprobe",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        },
+        {
+          "index_key": "frontend2",
+          "schema_version": 0,
+          "attributes": {
+            "backend_address_pool_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "backend_port": 58888,
+            "disable_outbound_snat": false,
+            "enable_floating_ip": true,
+            "enable_tcp_reset": false,
+            "frontend_ip_configuration_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/frontendIPConfigurations/frontend2",
+            "frontend_ip_configuration_name": "frontend2",
+            "frontend_port": 58888,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/loadBalancingRules/WSFCRule",
+            "idle_timeout_in_minutes": 4,
+            "load_distribution": "Default",
+            "loadbalancer_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB",
+            "name": "WSFCRule",
+            "probe_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/probes/WSFCProbe",
+            "protocol": "Tcp",
+            "resource_group_name": "NTGLab-Test",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal",
+            "module.load-balancer.azurerm_lb_backend_address_pool.az_lb_bepool",
+            "module.load-balancer.azurerm_lb_probe.az_lbprobe",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.load-balancer",
+      "mode": "managed",
+      "type": "azurerm_network_interface_backend_address_pool_association",
+      "name": "az_vnet_bepool",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "sql01_vm",
+          "schema_version": 0,
+          "attributes": {
+            "backend_address_pool_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic/ipConfigurations/private-ipconfig|/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "ip_configuration_name": "private-ipconfig",
+            "network_interface_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql01-nic",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.load-balancer.azurerm_lb_backend_address_pool.az_lb_bepool",
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal"
+          ]
+        },
+        {
+          "index_key": "sql02_vm",
+          "schema_version": 0,
+          "attributes": {
+            "backend_address_pool_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic/ipConfigurations/private-ipconfig|/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/loadBalancers/Test-LB/backendAddressPools/BackEndAddressPool",
+            "ip_configuration_name": "private-ipconfig",
+            "network_interface_id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkInterfaces/private-sql02-nic",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.virtual-network.azurerm_subnet.az_subnet",
+            "module.virtual-network.azurerm_virtual_network.az_vnet",
+            "azurerm_network_interface.private_nic",
+            "azurerm_public_ip.pip",
+            "azurerm_resource_group.az_rg",
+            "module.load-balancer.azurerm_lb.az_lb_internal",
+            "module.load-balancer.azurerm_lb_backend_address_pool.az_lb_bepool"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.virtual-network",
+      "mode": "managed",
+      "type": "azurerm_network_security_group",
+      "name": "az_nsg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "private_subnet",
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/networkSecurityGroups/nsg_private_subnet_in",
+            "location": "southeastasia",
+            "name": "nsg_private_subnet_in",
+            "resource_group_name": "NTGLab-Test",
+            "security_rule": [
+              {
+                "access": "Allow",
+                "description": "Inbound_Port_1433",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "1433",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "sqlengine",
+                "priority": 100,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "Inbound_Port_3389",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "3389",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "rdp",
+                "priority": 101,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "Inbound_Port_5022",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "5022",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "dbmirror",
+                "priority": 102,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "Inbound_Port_58888",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "58888",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "aglb",
+                "priority": 103,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "Inbound_Port_59999",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "59999",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "clusterlb",
+                "priority": 104,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              }
+            ],
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.virtual-network",
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "az_subnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": "private_subnet",
+          "schema_version": 0,
+          "attributes": {
+            "address_prefix": "10.0.1.0/24",
+            "address_prefixes": [
+              "10.0.1.0/24"
+            ],
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet",
+            "name": "private-subnet",
+            "resource_group_name": "NTGLab-Test",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [
+              "Microsoft.Storage"
+            ],
+            "timeouts": null,
+            "virtual_network_name": "Test-VNet"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg",
+            "module.virtual-network.azurerm_virtual_network.az_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.virtual-network",
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "az_vnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_space": [
+              "10.0.0.0/16"
+            ],
+            "bgp_community": "",
+            "ddos_protection_plan": [],
+            "dns_servers": [],
+            "guid": "33192b00-c162-4929-bec1-35589e71fa24",
+            "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet",
+            "location": "southeastasia",
+            "name": "Test-VNet",
+            "resource_group_name": "NTGLab-Test",
+            "subnet": [
+              {
+                "address_prefix": "10.0.1.0/24",
+                "id": "/subscriptions/2603cc0f-d088-442f-9be4-24431e17e9a3/resourceGroups/NTGLab-Test/providers/Microsoft.Network/virtualNetworks/Test-VNet/subnets/private-subnet",
+                "name": "private-subnet",
+                "security_group": ""
+              }
+            ],
+            "tags": {},
+            "timeouts": null,
+            "vm_protection_enabled": false
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.az_rg"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-
 Configuration SqlPrimary
 {
 #---------------
@@ -8,15 +7,25 @@ Configuration SqlPrimary
   Import-DscResource -ModuleName SqlServerDsc
   Import-DscResource -Module ComputerManagementDsc -ModuleVersion 8.4.0
   Import-DscResource -Module NetworkingDsc -ModuleVersion 8.2.0
-  Import-DscResource -ModuleName xFailOverCluster -ModuleVersion 1.15.0
+  Import-DscResource -ModuleName xFailOverCluster -ModuleVersion 1.16.0
   Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
 
+  # Credential Store
   $store = Get-AutomationPSCredential 'cred_store'
+  $cred_admin = Get-AutomationPSCredential 'cred_admin'
+  # Credential SA Sql
+  $cred_sasql = Get-AutomationPSCredential 'cred_sql'
+  # Credential AD Admin
   $cred_adadmin = Get-AutomationPSCredential 'cred_adadmin'
-  $cred_adjoin = new-object -typename System.Management.Automation.PSCredential -argumentlist ('ntglab\' + $cred_adadmin.UserName, $cred_adadmin.GetNetworkCredential().Password)
-  $cred_svcsql01 = Get-AutomationPSCredential 'cred_svcsql01'
-  $SqlSvcAccount = ('ntglab\' + $cred_svcsql01.UserName + '$')
-  $SqlSvcCred = new-object -typename System.Management.Automation.PSCredential -argumentlist $SqlSvcAccount,$cred_svcsql01.Password
+  $user_ad = 'ntglab\' + $cred_adadmin.UserName
+  $pass_ad = ConvertTo-SecureString $cred_adadmin.GetNetworkCredential().Password -AsPlainText -Force
+  $cred_adjoin = New-Object System.Management.Automation.PSCredential ($user_ad,$pass_ad)
+  # Credential SvcA Sql
+  $cred_svcsql = Get-AutomationPSCredential 'cred_svcsql'
+  $user_sql = 'ntglab\' + $cred_svcsql.UserName
+  $pass_sql = ConvertTo-SecureString $cred_svcsql.GetNetworkCredential().Password -AsPlainText -Force
+  $cred_svcasql = New-Object System.Management.Automation.PSCredential ($user_sql,$pass_sql)
+  # $SqlSvcCred = New-Object -typename System.Management.Automation.PSCredential -argumentlist $SqlSvcAccount,$cred_svcsql01.Password
 
   Node SQL01
   {
@@ -75,7 +84,7 @@ Configuration SqlPrimary
         Direction   = 'Inbound'
         LocalPort   = ('1433', '5022', '59999', '58888')
         Protocol    = 'TCP'
-        Profile     = ('Domain', 'Private')
+        Profile     = ('Domain', 'Private', 'Public')
     }
 
     DnsServerAddress 'DnsServerAddress'
@@ -92,7 +101,7 @@ Configuration SqlPrimary
       DomainName    = 'ntglab.com'
       WaitTimeout   = 600
       RestartCount  = 2
-      Credential    = (Get-AutomationPSCredential 'cred_admin')
+      Credential    = $cred_admin
     }
 
     Computer 'JoinDomain'
@@ -100,34 +109,25 @@ Configuration SqlPrimary
       Name       = 'SQL01'
       DomainName = 'ntglab.com'
       Credential = $cred_adjoin
-      DependsOn  = '[DnsServerAddress]DnsServerAddress'
+      DependsOn  = '[WaitForADDomain]WaitDomain'
     }
 
     xGroup 'AddUsertoLocalAdmin'
     {
       GroupName         = 'Administrators'
       Ensure            = 'Present'
-      MembersToInclude  = ($cred_adadmin.UserName, $cred_svcsql01.UserName)
+      MembersToInclude  = ($user_ad, $user_sql)
       Credential        = $cred_adadmin
       DependsOn         = '[Computer]JoinDomain'
     }
-
-    # xGroup 'AddSvcSql01toLocalAdmin'
-    # {
-    #   GroupName         = 'Administrators'
-    #   Ensure            = 'Present'
-    #   MembersToInclude  = $cred_svcsql01.UserName
-    #   Credential        = $cred_adadmin
-    #   DependsOn         = '[Computer]JoinDomain'
-    # }
 #------------------
 # Failover Cluster
 #------------------
     xCluster 'CreateCluster' 
     {
       Name                          = 'SqlCluster'
-      StaticIPAddress               = '10.0.1.10'
-      DomainAdministratorCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      StaticIPAddress               = '10.0.1.8'
+      DomainAdministratorCredential = $cred_adjoin
       DependsOn                     = '[xWindowsFeature]AddRemoteServerAdministrationToolsClusteringCmdInterfaceFeature', '[Computer]JoinDomain'
     }
 
@@ -138,14 +138,14 @@ Configuration SqlPrimary
       }                    
       SetScript  = {
         $Resource = Get-ClusterResource "Cluster IP Address"
-        Get-ClusterResource "Cluster IP Address"| Set-ClusterParameter -Multiple @{"Address"="10.0.1.10";"ProbePort"=59999;"SubnetMask"="255.255.255.0";"Network"="Cluster Network 1";"EnableDhcp"=0}
+        Get-ClusterResource "Cluster IP Address"| Set-ClusterParameter -Multiple @{"Address"="10.0.1.8";"ProbePort"=58888;"SubnetMask"="255.255.255.0";"Network"="Cluster Network 1";"EnableDhcp"=0}
         Stop-ClusterResource $Resource
         Start-ClusterResource 'Cluster Name'
       }
       TestScript = {
-        return($(Get-ClusterResource -name "Cluster IP Address" | Get-ClusterParameter -Name ProbePort ).Value -eq 59999)
+        return($(Get-ClusterResource -name "Cluster IP Address" | Get-ClusterParameter -Name ProbePort ).Value -eq 58888)
       }
-      PsDscRunAsCredential = $cred_adadmin
+      PsDscRunAsCredential = $cred_adjoin
       DependsON = "[xCluster]CreateCluster"
     }
 
@@ -161,9 +161,9 @@ Configuration SqlPrimary
     xArchive 'GetSource'
     {
       Ensure      = "Present"
-      Path        = "\\ntglabdevdata.file.core.windows.net\sqlsources\SQL2017.zip"
+      Path        = "\\ntglabdevdata.file.core.windows.net\sqlsources\SQL2019.zip"
       Destination = "C:\Packages"
-      Credential  = (Get-AutomationPSCredential 'cred_store')
+      Credential  = $store
     }
 
 #------------------
@@ -171,18 +171,22 @@ Configuration SqlPrimary
 #------------------
     SqlSetup 'DB'
     {
-      InstanceName          = 'MSSQLSERVER'
-      SourcePath            = 'C:\Packages\SQL2017'
+      InstanceName          = 'INSTANCE1'
+      SourcePath            = 'C:\Packages\SQL2019'
       Features              = 'SQLENGINE,FullText,Replication'
+      SQLCollation          = 'SQL_Latin1_General_CP1_CI_AS'
+
+      SQLSvcAccount         = $cred_svcasql
+      AgtSvcAccount         = $cred_svcasql
+      SQLSysAdminAccounts   = 'ntglab.com\admin', $cred_adadmin.UserName
       
       InstallSharedDir      = 'C:\Program Files\Microsoft SQL Server'
       InstallSharedWOWDir   = 'C:\Program Files (x86)\Microsoft SQL Server'
       InstanceDir           = 'C:\Program Files\Microsoft SQL Server'
 
       SecurityMode          = 'SQL'
-      SAPwd                 = (Get-AutomationPSCredential 'cred_sql')
-      SQLSysAdminAccounts   = $cred_adadmin.UserName
-      SQLSvcAccount         = $SqlSvcCred
+      SAPwd                 = $cred_sasql
+      #SQLSvcAccount         = $SqlSvcCred
 
       InstallSQLDataDir     = 'C:\MSSQL\Data'
       SQLUserDBDir          = 'C:\MSSQL\Data'
@@ -193,14 +197,14 @@ Configuration SqlPrimary
 
       UpdateEnabled         = 'False'
       SQLSvcStartupType     = 'Automatic'
-      PsDscRunAsCredential  = (Get-AutomationPSCredential 'cred_adadmin')
+      PsDscRunAsCredential  = $cred_adadmin
       DependsOn             = '[xArchive]GetSource'
     }
 
     SqlProtocol 'ChangeTcpIpOnDefaultInstance'
     {
       DependsOn              = '[SqlSetup]DB'
-      InstanceName           = 'MSSQLSERVER'
+      InstanceName           = 'INSTANCE1'
       ProtocolName           = 'TcpIp'
       Enabled                = $true
       ListenOnAllIpAddresses = $true
@@ -210,7 +214,7 @@ Configuration SqlPrimary
     SqlConfiguration 'AllowRemoteAccess'
     {
       DependsOn      ='[SqlSetup]DB'
-      InstanceName   = 'MSSQLSERVER'
+      InstanceName   = 'INSTANCE1'
       OptionName     = 'remote access'
       OptionValue    = 1
       RestartService = $true
@@ -219,15 +223,15 @@ Configuration SqlPrimary
     SqlWindowsFirewall 'AllowFirewall'
     {
       DependsOn             = '[SqlSetup]DB'
-      InstanceName          = 'MSSQLSERVER'
-      Features              = 'SQLEngine'
-      SourcePath            = 'C:\Packages\SQL2017'
+      InstanceName          = 'INSTANCE1'
+      Features              = 'SQLENGINE'
+      SourcePath            = 'C:\Packages\SQL2019'
     }
 
     # SqlDatabase 'CreateDbaDatabase'
     # {
     #   DependsOn             = '[SqlSetup]DB'
-    #   InstanceName          = 'MSSQLSERVER'
+    #   InstanceName          = 'INSTANCE1'
     #   Name                  = 'DBA'
     # }
 
@@ -235,11 +239,11 @@ Configuration SqlPrimary
     SqlLogin 'AddWindowsUserSqlSvc'
     {
       Ensure               = 'Present'
-      Name                 = $SqlSvcAccount
+      Name                 = $user_sql
       LoginType            = 'WindowsUser'
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      InstanceName         = 'INSTANCE1'
+      PsDscRunAsCredential = $cred_adadmin
       DependsOn            = '[SqlSetup]DB'
     }
 
@@ -249,8 +253,8 @@ Configuration SqlPrimary
       Name                 = 'NT SERVICE\ClusSvc'
       LoginType            = 'WindowsUser'
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      InstanceName         = 'INSTANCE1'
+      PsDscRunAsCredential = $cred_adadmin
       DependsOn            = '[SqlSetup]DB'
     }
 
@@ -259,10 +263,10 @@ Configuration SqlPrimary
     {       
       Ensure               = 'Present'
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
-      Principal            = $SqlSvcAccount
+      InstanceName         = 'INSTANCE1'
+      Principal            = $user_sql
       Permission           = 'AlterAnyAvailabilityGroup', 'ViewServerState', 'AlterAnyEndPoint', 'ConnectSql'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      PsDscRunAsCredential = $cred_adadmin
       DependsOn            = '[SqlLogin]AddWindowsUserSqlSvc'
     }
 
@@ -270,32 +274,32 @@ Configuration SqlPrimary
     {
       Ensure               = 'Present'
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
+      InstanceName         = 'INSTANCE1'
       Principal            = 'NT SERVICE\ClusSvc'
       Permission           = 'AlterAnyAvailabilityGroup', 'ViewServerState'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      PsDscRunAsCredential = $cred_adadmin
       DependsOn            = '[SqlLogin]AddWindowsUserClusSvc'
     }
 
-    SqlMaxDop 'Set_SqlMaxDop_ToAuto'
-    {
-      Ensure                  = 'Present'
-      DynamicAlloc            = $true
-      ServerName              = 'SQL01'
-      InstanceName            = 'MSSQLSERVER'
-      PsDscRunAsCredential    = (Get-AutomationPSCredential 'cred_adadmin')
-      DependsOn               = '[SqlSetup]DB'
-    }
+    # SqlMaxDop 'Set_SqlMaxDop_ToAuto'
+    # {
+    #   Ensure                  = 'Present'
+    #   DynamicAlloc            = $true
+    #   ServerName              = 'SQL01'
+    #   InstanceName            = 'INSTANCE1'
+    #   PsDscRunAsCredential    = (Get-AutomationPSCredential 'cred_adadmin')
+    #   DependsOn               = '[SqlSetup]DB'
+    # }
 
-    SqlMemory 'Set_SQLServerMaxMemory_ToAuto'
-    {
-      Ensure               = 'Present'
-      DynamicAlloc         = $true
-      ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
-      DependsOn            = '[SqlSetup]DB'
-    }
+    # SqlMemory 'Set_SQLServerMaxMemory_ToAuto'
+    # {
+    #   Ensure               = 'Present'
+    #   DynamicAlloc         = $true
+    #   ServerName           = 'SQL01'
+    #   InstanceName         = 'INSTANCE1'
+    #   PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+    #   DependsOn            = '[SqlSetup]DB'
+    # }
 
     SqlEndpoint 'HADREndpoint'
     {
@@ -304,56 +308,55 @@ Configuration SqlPrimary
       EndpointType         = 'DatabaseMirroring'
       Port                 = 5022
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
-      DependsOn            = '[SqlSetup]DB', '[xCluster]CreateCluster'
+      InstanceName         = 'INSTANCE1'
+      PsDscRunAsCredential = $cred_adadmin
     }
 
     SqlAlwaysOnService 'EnableAlwaysOn'
     {
       Ensure               = 'Present'
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
+      InstanceName         = 'INSTANCE1'
       RestartTimeout       = 120
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      PsDscRunAsCredential = $cred_adadmin
       DependsOn            = '[SqlEndpoint]HADREndpoint'
     }
 
     SqlAG 'AddAG'
     {
       Ensure               = 'Present'
-      Name                 = 'TestAG'
-      InstanceName         = 'MSSQLSERVER'
+      Name                 = 'AG'
+      InstanceName         = 'INSTANCE1'
       ServerName           = 'SQL01'
       AvailabilityMode     = 'SynchronousCommit'
       FailoverMode         = 'Automatic'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')  
-      DependsOn            = '[SqlAlwaysOnService]EnableAlwaysOn', '[SqlEndpoint]HADREndpoint', '[SqlPermission]AddNTServiceClusSvcPermissions'
+      PsDscRunAsCredential = $cred_adadmin
+      DependsOn            = '[SqlAlwaysOnService]EnableAlwaysOn', '[SqlEndpoint]HADREndpoint'
     }
 
     SqlAGListener 'AvailabilityGroupListener'
     {
       Ensure               = 'Present'
       ServerName           = 'SQL01'
-      InstanceName         = 'MSSQLSERVER'
-      AvailabilityGroup    = 'TestAG'
-      Name                 = 'TestAG'
+      InstanceName         = 'INSTANCE1'
+      AvailabilityGroup    = 'AG'
+      Name                 = 'AG'
       IpAddress            = '10.0.1.9/255.255.255.0'
       Port                 = '1433'
-      PsDscRunAsCredential = (Get-AutomationPSCredential 'cred_adadmin')
+      PsDscRunAsCredential = $cred_adadmin
       DependsON            = '[SqlAG]AddAG'
     }
 
     Script  'AddProbeToSQLClusterResource'
     {
       GetScript  = {
-        return @{ 'Result' = $(Get-ClusterResource 'TestAG_10.0.1.9' | Get-ClusterParameter -Name ProbePort ).Value}
+        return @{ 'Result' = $(Get-ClusterResource 'AG_10.0.1.9' | Get-ClusterParameter -Name ProbePort ).Value}
       }                    
       SetScript  = { 
-        Get-ClusterResource 'TestAG_10.0.1.9'| Set-ClusterParameter -Multiple @{"Address"="10.0.1.9";"ProbePort"=59999;"SubnetMask"="255.255.255.0";"Network"="Cluster Network 1";"EnableDhcp"=0}
+        Get-ClusterResource 'AG_10.0.1.9'| Set-ClusterParameter -Multiple @{"Address"="10.0.1.9";"ProbePort"=59999;"SubnetMask"="255.255.255.0";"Network"="Cluster Network 1";"EnableDhcp"=0}
       }
       TestScript = {
-        return($(Get-ClusterResource 'TestAG_10.0.1.9' | Get-ClusterParameter -Name ProbePort ).Value -eq 59999)
+        return($(Get-ClusterResource 'AG_10.0.1.9' | Get-ClusterParameter -Name ProbePort ).Value -eq 59999)
       }
       PsDscRunAsCredential = $cred_adadmin
       DependsON = "[SqlAGListener]AvailabilityGroupListener"
