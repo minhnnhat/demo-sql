@@ -24,13 +24,8 @@ aa_credentials = {
     cred_user = ""
     cred_pass = ""
   }
-  svcsql01 = {
-    cred_name = "cred_svcsql01"
-    cred_user = ""
-    cred_pass = ""
-  }
-  svcsql02 = {
-    cred_name = "cred_svcsql02"
+  svcsql = {
+    cred_name = "cred_svcsql"
     cred_user = ""
     cred_pass = ""
   }

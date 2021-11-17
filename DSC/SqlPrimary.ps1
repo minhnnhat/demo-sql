@@ -233,7 +233,6 @@ Configuration SqlPrimary
       DependsOn             = '[SqlSetup]DB'
       InstanceName          = 'INSTANCE1'
       Name                  = 'SyncedDB'
-      Collation             = 'SQL_Latin1_General_100_CS_AS'
     }
 
     # Adding the required service account to allow the cluster to log into SQL

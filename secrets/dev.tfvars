@@ -77,8 +77,6 @@ aa_dscfiles = {
   "ADServer"              = "DSC/AD.ps1"
   "SqlPrimary"            = "DSC/SqlPrimary.ps1"
   "SqlSecondary"          = "DSC/SqlSecondary.ps1"
-  "SqlPrimary_AlwaysOn"   = "DSC/SqlPrimary_AlwaysOn.ps1"
-  "SqlSecondary_AlwaysOn" = "DSC/SqlSecondary_AlwaysOn.ps1"
 }
 #---------------
 # Load Balancer

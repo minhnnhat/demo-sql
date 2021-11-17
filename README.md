@@ -9,6 +9,8 @@
   * [Report Status](#report-status)
   * [General DSC Command to Know](#general-dsc-command-to-know)
   * [Reuse-ability (Module)](#reuse-ability--module-)
+  * [Demo](#demo)
+  * [TODO](#todo)
   * [Reference](#reference)
 ## Problems 
 
@@ -101,33 +103,6 @@
 - **Get-DSCConfigurationStatus**: queries the local configuration status of the machine
 - **Get-DSCLocalConfigurationManager**: gets the local configuration, meta-data, and state of the node
 - **Update-DSCConfiguration**: pull the state configuration file and apply changes, if any
-
-################################################################################################
-#######                                      DEMO                                        #######
-################################################################################################
-**Lab**: Setup SQL Server
-
-    Azure Portal:
-        - Create storage account
-        - Upload sql source to file share
-        - Create automation account
-        - Upload DSc configuration script
-        - Import required module (https://docs.microsoft.com/en-us/azure/automation/shared-resources/modules)
-        - Create automation credential
-        - Compile configuration file -> SQLInstance.localhost (mof file)
-        - Register node to pull server
-        - Assign node configuration
-        - Monitor
-
-    DSC Configuration file:
-              Setup                             Module                          DSC Resource
-
-    Install Essential packages                 Built-in                        WindowsFeature      
-    SQL install packages              xPSDesiredStateConfiguration                xArchive
-    Install SQL server                       SqlServerDsc                         SqlSetup
-    Enable TCP                               SqlServerDsc                        SqlProtocol    
-    Allow remote (SQL Development)           SqlServerDsc                     SqlConfiguration
-    Allow firewall                           SqlServerDsc                     SqlWindowsFirewall
 
 ## Reuse-ability (Module)
 
@@ -254,6 +229,36 @@ _____DSC
 +    }
 ...
 ```
+
+## DEMO
+**Lab**: Setup SQL Server with SQL Server Always On Availability Groups
+
+    The Azure portal way:
+        - Create storage account
+        - Upload sql source to file share
+        - Create automation account
+        - Upload DSC configuration script
+        - Import required module (https://docs.microsoft.com/en-us/azure/automation/shared-resources/modules)
+        - Create automation credential
+        - Compile configuration file
+        - Register node to pull server
+        - Assign node configuration
+        - Monitor
+    The Nearly-Terraform way:
+        - Step 1:
+            + terraform apply -var-file=secrets/dev.tfvars -var-file=secrets/secrets_public.tfvars
+        - Step 2:
+            + Access Azure portal -> Automation Account ->  Configuration Management -> State Configuration (DSC) -> Configurations tab -> Choose DSC configuration -> Compile
+            + Wait for compile job to complete -> Move to Nodes tab -> Select VM -> Assign node configuration
+        - Step 4:
+            + After AD server is complaint, remote and create Managed Service User (svc-sql) in AD Users and Computers. The password must match with pass variable of svcsql in secrets_public.tfvars
+        - Step 5:
+            + Assign two DSC configuration (SqlPrimary and SqlSecondary) to 2 other VMs.
+        - Step 6:
+            + Monitor all nodes assigned DSC to complaint
+
+## TODO
+- Compile DSC configuration featrure still not support yet. Follow the [link](https://github.com/hashicorp/terraform-provider-azurerm/issues/7404)
 
 ## Reference
 
