@@ -90,7 +90,7 @@ Configuration SqlPrimary
     DnsServerAddress 'DnsServerAddress'
     {
       Address        = '10.0.1.4'
-      InterfaceAlias = 'Ethernet 2'
+      InterfaceAlias = 'Ethernet'
       AddressFamily  = 'IPv4'
       Validate       = $true
       

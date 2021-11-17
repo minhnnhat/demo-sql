@@ -89,7 +89,7 @@ Configuration SqlSecondary
     DnsServerAddress 'DnsServerAddress'
     {
       Address        = '10.0.1.4'
-      InterfaceAlias = 'Ethernet 2'
+      InterfaceAlias = 'Ethernet'
       AddressFamily  = 'IPv4'
       Validate       = $true
       
@@ -287,16 +287,17 @@ Configuration SqlSecondary
     SqlWaitForAG 'SQLConfigureAG-WaitAG'
     {
       Name                 = 'AG'
-      InstanceName         = 'INSTANCE2'
+      InstanceName         = 'INSTANCE1'
       RetryIntervalSec     = 60
       RetryCount           = 40
+      ServerName           = 'SQL01'
       PsDscRunAsCredential = $cred_adadmin
     }
 
     SqlAGReplica 'AddReplica'
     {
       Ensure                     = 'Present'
-      Name                       = 'SQL02'
+      Name                       = 'SQL02\INSTANCE2'
       AvailabilityGroupName      = 'AG'
       ServerName                 = 'SQL02'
       InstanceName               = 'INSTANCE2'

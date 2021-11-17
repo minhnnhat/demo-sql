@@ -129,7 +129,7 @@ Configuration ADServer
     DnsServerAddress 'DnsServerAddress'
     {
         Address        = '127.0.0.1'
-        InterfaceAlias = 'Ethernet 2'
+        InterfaceAlias = 'Ethernet'
         AddressFamily  = 'IPv4'
         Validate       = $true
     }

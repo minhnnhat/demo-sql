@@ -102,8 +102,9 @@
 - **Get-DSCLocalConfigurationManager**: gets the local configuration, meta-data, and state of the node
 - **Update-DSCConfiguration**: pull the state configuration file and apply changes, if any
 
------------ DEMO -----------
-
+################################################################################################
+#######                                      DEMO                                        #######
+################################################################################################
 **Lab**: Setup SQL Server
 
     Azure Portal:
