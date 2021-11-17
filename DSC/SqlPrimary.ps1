@@ -228,12 +228,13 @@ Configuration SqlPrimary
       SourcePath            = 'C:\Packages\SQL2019'
     }
 
-    # SqlDatabase 'CreateDbaDatabase'
-    # {
-    #   DependsOn             = '[SqlSetup]DB'
-    #   InstanceName          = 'INSTANCE1'
-    #   Name                  = 'DBA'
-    # }
+    SqlDatabase 'CreateDbaDatabase'
+    {
+      DependsOn             = '[SqlSetup]DB'
+      InstanceName          = 'INSTANCE1'
+      Name                  = 'SyncedDB'
+      Collation             = 'SQL_Latin1_General_100_CS_AS'
+    }
 
     # Adding the required service account to allow the cluster to log into SQL
     SqlLogin 'AddWindowsUserSqlSvc'
@@ -360,6 +361,18 @@ Configuration SqlPrimary
       }
       PsDscRunAsCredential = $cred_adadmin
       DependsON = "[SqlAGListener]AvailabilityGroupListener"
+    }
+
+    SqlAGDatabase 'AddAGDatabaseMemberships'
+    {
+      AvailabilityGroupName   = 'AG'
+      BackupPath              = '\\SQL01\Backup'
+      DatabaseName            = 'SyncedDB'
+      InstanceName            = 'INSTANCE1'
+      ServerName              = 'SQL01'
+      Ensure                  = 'Present'
+      ProcessOnlyOnActiveNode = $true
+      PsDscRunAsCredential    = $cred_adadmin
     }
   }
 }
