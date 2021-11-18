@@ -361,17 +361,5 @@ Configuration SqlPrimary
       PsDscRunAsCredential = $cred_adadmin
       DependsON = "[SqlAGListener]AvailabilityGroupListener"
     }
-
-    SqlAGDatabase 'AddAGDatabaseMemberships'
-    {
-      AvailabilityGroupName   = 'AG'
-      BackupPath              = '\\SQL01\Backup'
-      DatabaseName            = 'SyncedDB'
-      InstanceName            = 'INSTANCE1'
-      ServerName              = 'SQL01'
-      Ensure                  = 'Present'
-      ProcessOnlyOnActiveNode = $true
-      PsDscRunAsCredential    = $cred_adadmin
-    }
   }
 }
